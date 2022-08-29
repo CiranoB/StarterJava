@@ -18,27 +18,27 @@ public class Diet {
 	@Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "uuid", columnDefinition = "char(36)")
+    @Column(name = "uuidDiet", columnDefinition = "char(36)")
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID uuid;
+    private UUID uuidDiet;
 	
-	private float kcalDiet;
+	private Float kcalDiet;
 	
 	private String foodsDiet;
 
 	public UUID getUuid() {
-		return uuid;
+		return uuidDiet;
 	}
 
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
+	public void setUuid(UUID uuidDiet) {
+		this.uuidDiet = uuidDiet;
 	}
 
-	public float getKcalDiet() {
+	public Float getKcalDiet() {
 		return kcalDiet;
 	}
 
-	public void setKcalDiet(float kcalDiet) {
+	public void setKcalDiet(Float kcalDiet) {
 		this.kcalDiet = kcalDiet;
 	}
 
