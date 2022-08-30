@@ -23,7 +23,7 @@ public class Group {
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(name = "uuidGroup", columnDefinition = "vachar(36)", nullable = false, unique = true)
+	@Column(name = "uuidGroup", columnDefinition = "char(36)", nullable = false, unique = true)
 	@Type(type = "org.hibernate.type.UUIDCharType")
 	private UUID uuidGroup;
 
