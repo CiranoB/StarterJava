@@ -23,7 +23,21 @@ public class Nutritionist extends Person{
 	public String getCrnNutritionist() {
 		return crnNutritionist;
 	}
+	
+	public Nutritionist(@NotNull @Size(min = 4) String crnNutritionist, @NotNull boolean statusNutritionist,
+			@NotNull @Size(min = 4) String registerNutritionist) {
+		super();
+		this.crnNutritionist = crnNutritionist;
+		this.statusNutritionist = statusNutritionist;
+		this.registerNutritionist = registerNutritionist;
+	}
 
+	public Nutritionist() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	//getters e setters
 	public void setCrnNutritionist(String crnNutritionist) {
 		this.crnNutritionist = crnNutritionist;
 	}

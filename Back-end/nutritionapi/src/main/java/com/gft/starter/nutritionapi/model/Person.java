@@ -15,12 +15,15 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+//MappedSuperclass informa ao programa que esta classe se trata de um superclass e que a função dela é só atribuir
+//Inheritance informa como vai funcionar a herança
 @MappedSuperclass
-//@Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name="TYPE")
 public class Person {
 	
+	
+	//Gerador UUID
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -46,6 +49,8 @@ public class Person {
 	@Size(min=5, max=100)
 	private String passwordPerson;
 
+	
+	//getters e setters
 	public UUID getUuidPerson() {
 		return uuidPerson;
 	}

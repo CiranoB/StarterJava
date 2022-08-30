@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+
+//Declaração de entidade e nome da tabela do banco de dados
 @Entity
 @Table(name="tb_bookkeeper")
 public class Bookkeeper extends Person{
