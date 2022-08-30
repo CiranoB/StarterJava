@@ -35,16 +35,18 @@ public class GroupController {
 	public ResponseEntity<List<Group>> getAll() {
 		return ResponseEntity.ok(groupRepository.findAll());
 	}
-	
+
 	@GetMapping("/find/{uuidGroup}")
-	public ResponseEntity<Group> getById(@PathVariable Character uuidGroup){
-		return groupRepository.findById(uuidGroup)
-				.map(resp -> ResponseEntity.ok(resp))
+	public ResponseEntity<Group> getById(@PathVariable UUID uuidGroup) {
+		return groupRepository.findById(uuidGroup).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<Group> post(@Valid @RequestBody Group group){
-		return ResponseEntity.status(HttpStatus.CREATED).body(groupRepository.save(group));
+	public ResponseEntity<Group> post(@Valid @RequestBody Group group) {
+		if (dietRepository.existsById(group.getDiet().getUuidDiet())) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(groupRepository.save(group));
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 }
