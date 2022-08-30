@@ -1,15 +1,20 @@
 package com.gft.starter.nutritionapi.model;
 
+import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="tb_diet")
@@ -26,11 +31,15 @@ public class Diet {
 	
 	private String foodsDiet;
 
-	public UUID getUuid() {
+	@OneToMany(mappedBy="diet", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("diet")
+	private List<Group> group;
+
+	public UUID getUuidDiet() {
 		return uuidDiet;
 	}
 
-	public void setUuid(UUID uuidDiet) {
+	public void setUuidDiet(UUID uuidDiet) {
 		this.uuidDiet = uuidDiet;
 	}
 
@@ -48,6 +57,14 @@ public class Diet {
 
 	public void setFoodsDiet(String foodsDiet) {
 		this.foodsDiet = foodsDiet;
+	}
+
+	public List<Group> getGroup() {
+		return group;
+	}
+
+	public void setGroup(List<Group> group) {
+		this.group = group;
 	}
 	
 }
