@@ -3,9 +3,6 @@ package com.gft.starter.nutritionapi.service;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,7 +59,7 @@ public class DietService {
 			.getResponseBody();
 		
 		response = response.replace(" ", "");
-		System.out.println("\n\n\n\n\n"+response+"\n\n\n\n");
+		//System.out.println("\n\n\n\n\n"+response+"\n\n\n\n");
 		
 		try{
 			client.close();
@@ -79,17 +76,13 @@ public class DietService {
 		}
 
 		String[] items = matcher.group(1).split("\\},");
-		List<Map<String, String>> dados = new ArrayList<>();
 		
 		float KcalDiet=0;
 		for (String item : items) {
 			item = item +"}";
-			//System.out.println(item);
 			JSONObject jsonObject = new JSONObject(item);
 			KcalDiet+=jsonObject.getFloat("calories");
-			//System.out.println("KcalDiet: "+jsonObject.getFloat("sugar_g"));
 		}
-		//System.out.printf("Total de calorias: %.2f", KcalDiet);
 		return KcalDiet;
 	}
 }
