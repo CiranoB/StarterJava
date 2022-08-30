@@ -38,6 +38,12 @@ public class DietController {
 		return ResponseEntity.ok(dietRepository.findAll());
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<Diet> getById(@PathVariable UUID uuid){
+		return dietRepository.findById(uuid).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());	
+	}
+	
 	@PostMapping
 	public ResponseEntity<Diet> post(@Valid @RequestBody Diet diet){
 		return dietSerivce.criandoDieta(diet)
