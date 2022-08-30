@@ -44,8 +44,9 @@ public class GroupController {
 
 	@PostMapping("/register")
 	public ResponseEntity<Group> post(@Valid @RequestBody Group group){
-		if(dietRepository.existsById(group.getDiet().getUuid())) {
+		//if(dietRepository.existsById(group.getDiet().getUuid())) {
 			
-		}
+		//}
+		return null;
 	}
 }
