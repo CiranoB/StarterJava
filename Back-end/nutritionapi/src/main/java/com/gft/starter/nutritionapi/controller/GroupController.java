@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,5 +50,25 @@ public class GroupController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(groupRepository.save(group));
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	}
+
+	@PutMapping("/update")
+	public ResponseEntity<Group> put(@Valid @RequestBody Group group) {
+		if (groupRepository.existsById(group.getUuidGroup())) {
+			if (dietRepository.existsById(group.getDiet().getUuidDiet())) {
+				return ResponseEntity.status(HttpStatus.OK).body(groupRepository.save(group));
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+
+	@DeleteMapping("/delete")
+	//O ? significa que eu não sei que tipo de retorno ele dará para o response
+	public ResponseEntity<?> delete(@PathVariable UUID uuidGroup){
+		return groupRepository.findById(uuidGroup).map(resp->{
+			groupRepository.deleteById(uuidGroup);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}).orElse(ResponseEntity.notFound().build());
 	}
 }
