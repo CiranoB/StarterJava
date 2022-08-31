@@ -22,7 +22,7 @@ import com.gft.starter.nutritionapi.model.Diet;
 import com.gft.starter.nutritionapi.repository.DietRepository;
 import com.gft.starter.nutritionapi.service.DietService;
 
-@RequestMapping("/dietas")
+@RequestMapping("/diet")
 @CrossOrigin("*")
 @RestController
 public class DietController {
@@ -33,32 +33,32 @@ public class DietController {
 	@Autowired
 	DietService dietSerivce;
 	
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<Diet>> getAll(){
 		return ResponseEntity.ok(dietRepository.findAll());
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/find/{uuid}")
 	public ResponseEntity<Diet> getById(@PathVariable UUID uuid){
 		return dietRepository.findById(uuid).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());	
 	}
 	
-	@PostMapping
+	@PostMapping("/register")
 	public ResponseEntity<Diet> post(@Valid @RequestBody Diet diet){
 		return dietSerivce.criandoDieta(diet)
 				.map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 	
-	@PutMapping
+	@PutMapping("/uptade")
 	public ResponseEntity<Diet> put(@Valid @RequestBody Diet diet){
 		return dietSerivce.atualizandoDieta(diet)
 				.map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
-	@DeleteMapping("/{uuid}")
+	@DeleteMapping("/delete/{uuid}")
 	public void delete(@PathVariable UUID uuid){
 		dietRepository.deleteById(uuid);
 	}

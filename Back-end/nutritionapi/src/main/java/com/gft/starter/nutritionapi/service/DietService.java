@@ -52,7 +52,7 @@ public class DietService {
 			.setHeader("Accept-Encoding", "application/gzip")
 			.setHeader("X-RapidAPI-Key", "10d7a5b1aamshae6b8eea268bea9p17ba22jsn3050dc60d25c")
 			.setHeader("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
-			.setBody("q="+entrada+"&target=pt&source=en")
+			.setBody("q="+entrada+"&target=en&source=pt")
 			.execute()
 			.toCompletableFuture()
 			.join().getResponseBody();
@@ -121,7 +121,6 @@ public class DietService {
 		}
 		
 		String[] items = matcher.group(1).split("\\},");
-		
 		
 		for (String item : items) {
 			item = item +"}";
