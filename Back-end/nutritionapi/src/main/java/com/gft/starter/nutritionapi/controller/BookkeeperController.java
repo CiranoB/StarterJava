@@ -17,41 +17,42 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.gft.starter.nutritionapi.model.User;
-import com.gft.starter.nutritionapi.repository.UserRepository;
+import com.gft.starter.nutritionapi.model.Bookkeeper;
+import com.gft.starter.nutritionapi.repository.BookkeeperRepository;
 
-@RequestMapping("/user")
+
+@RequestMapping("/bookkeeper")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-public class UserController {
+public class BookkeeperController {
 
 	@Autowired
-	UserRepository userRepository;
+	BookkeeperRepository bookkeeperRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> getAll(){
-		return ResponseEntity.ok(userRepository.findAll());
+	public ResponseEntity<List<Bookkeeper>> getAll(){
+		return ResponseEntity.ok(bookkeeperRepository.findAll());
 	}
 	
-	@GetMapping("/find/{uuidUser}")
-	public ResponseEntity<User> getById(@PathVariable UUID uuidUser){
-		return userRepository.findById(uuidUser).map(resp -> ResponseEntity.ok(resp))
+	@GetMapping("/find/{uuidBookkeeper}")
+	public ResponseEntity<Bookkeeper> getById(@PathVariable UUID uuidBookkeeper){
+		return bookkeeperRepository.findById(uuidBookkeeper).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());	
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<User> post (@Valid @RequestBody User user){
-		return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(user));
+	public ResponseEntity<Bookkeeper> post (@Valid @RequestBody Bookkeeper bookkeeper){
+		return ResponseEntity.status(HttpStatus.CREATED).body(bookkeeperRepository.save(bookkeeper));
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<User> put(@Valid @RequestBody User user){
-		return ResponseEntity.ok(userRepository.save(user));
+	public ResponseEntity<Bookkeeper> put(@Valid @RequestBody Bookkeeper bookkeeper){
+		return ResponseEntity.ok(bookkeeperRepository.save(bookkeeper));
 	}
 	
-	@DeleteMapping("/delete/{uuidUser}")
-	public void deletar(@PathVariable UUID uuidUser) {
-		userRepository.deleteById(uuidUser);
+	@DeleteMapping("/delete/{uuidBookkeeper}")
+	public void delete(@PathVariable UUID uuidBookkeeper) {
+		bookkeeperRepository.deleteById(uuidBookkeeper);
 	}
 	
 }
