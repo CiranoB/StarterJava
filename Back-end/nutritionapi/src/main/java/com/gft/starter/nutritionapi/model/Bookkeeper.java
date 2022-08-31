@@ -16,6 +16,17 @@ public class Bookkeeper extends Person{
 	@NotNull
 	private String registerBookkeeper;
 
+	public Bookkeeper() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Bookkeeper(@NotNull boolean statusBookkeeper, @NotNull String registerBookkeeper) {
+		super();
+		this.statusBookkeeper = statusBookkeeper;
+		this.registerBookkeeper = registerBookkeeper;
+	}
+
 	public boolean isStatusBookkeeper() {
 		return statusBookkeeper;
 	}
