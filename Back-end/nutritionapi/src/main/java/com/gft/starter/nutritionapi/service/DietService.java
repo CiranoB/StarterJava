@@ -26,7 +26,7 @@ public class DietService {
 	
 	public Optional<Diet> criandoDieta(Diet diet){
 		
-		diet.setKcalDiet(acessandoApiNutri(diet.getFoodsDiet()));
+		diet.setKcalDiet(acessandoApiNutri(acessandoApiTraducao(diet.getFoodsDiet())));
 		
 		return Optional.of(dietRepository.save(diet));
 	}
@@ -35,7 +35,7 @@ public class DietService {
 		
 		if(dietRepository.findById(diet.getUuidDiet()).isPresent()) {
 			
-			diet.setKcalDiet(acessandoApiNutri(diet.getFoodsDiet()));
+			diet.setKcalDiet(acessandoApiNutri(acessandoApiTraducao(diet.getFoodsDiet())));
 			
 			return Optional.ofNullable(dietRepository.save(diet));
 		}
@@ -43,12 +43,56 @@ public class DietService {
 		return Optional.empty();
 	}
 	
-	private Float acessandoApiNutri(String comidas) {
-		String response;
+	private String acessandoApiTraducao(String comidas) {
 		String entrada = comidas;
+		String resposta;
+		AsyncHttpClient client = new DefaultAsyncHttpClient();
+		resposta = client.preparePost("https://google-translate1.p.rapidapi.com/language/translate/v2")
+			.setHeader("content-type", "application/x-www-form-urlencoded")
+			.setHeader("Accept-Encoding", "application/gzip")
+			.setHeader("X-RapidAPI-Key", "10d7a5b1aamshae6b8eea268bea9p17ba22jsn3050dc60d25c")
+			.setHeader("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
+			.setBody("q="+entrada+"&target=pt&source=en")
+			.execute()
+			.toCompletableFuture()
+			.join().getResponseBody();
+
+		
+		try{
+			client.close();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("\\n\\nReposta:"+resposta+"\n\n");
+		Matcher matcher = REGEX_ITEMS.matcher(resposta);
+		if (!matcher.find()) {
+			throw new IllegalArgumentException("Não encontrou items. API tradu");
+		}
+
+		System.out.println("\n\n"+matcher+"\n\n");
+		String[] items = matcher.group(1).split("\\}}");
+		
+		String foods = null;
+		for (String item : items) {
+			JSONObject jsonObject = new JSONObject(item);
+			foods = jsonObject.getString("translatedText");
+			break;
+		}
+		
+		System.out.println(foods);
+		
+		return foods;
+	}
+	
+	
+	private Float acessandoApiNutri(String foods) {
+		String response;
+		String entrada = foods;
 		
 		entrada = URLEncoder.encode(entrada, StandardCharsets.UTF_8);
-		System.out.println(entrada);
+		System.out.println("Chegando: "+entrada);
+		
 		AsyncHttpClient client = new DefaultAsyncHttpClient();
 		response = client.prepareGet("https://calorieninjas.p.rapidapi.com/v1/nutrition?query="+entrada)
 			.setHeader("X-RapidAPI-Key", "3a5ce2784dmsh7391373d5c6013dp1e6befjsn312c0dd62df7")
@@ -59,30 +103,33 @@ public class DietService {
 			.getResponseBody();
 		
 		response = response.replace(" ", "");
-		//System.out.println("\n\n\n\n\n"+response+"\n\n\n\n");
+		System.out.println("\n\n\n\n\n"+response+"\n\n\n\n");
 		
 		try{
 			client.close();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		return parse(response);
-	}
-	
-	private Float parse(String json) {
-		Matcher matcher = REGEX_ITEMS.matcher(json);
+		
+		Float KcalDiet=(float) 0.0;
+		
+		Matcher matcher = REGEX_ITEMS.matcher(response);
 		if (!matcher.find()) {
-			throw new IllegalArgumentException("Não encontrou items.");
-		}
+			throw new IllegalArgumentException("Não encontrou items. API nutri");
+			//throw new ResponseStatusException(HttpStatus.REQUEST_TIMEOUT, "Não encontrou items. API nutri", null);
 
+		}
+		
 		String[] items = matcher.group(1).split("\\},");
 		
-		float KcalDiet=0;
+		
 		for (String item : items) {
 			item = item +"}";
 			JSONObject jsonObject = new JSONObject(item);
 			KcalDiet+=jsonObject.getFloat("calories");
 		}
+		
 		return KcalDiet;
 	}
+
 }
