@@ -64,13 +64,13 @@ public class DietService {
 			e.printStackTrace();
 		}
 		
-		System.out.println("\\n\\nReposta:"+resposta+"\n\n");
+		//System.out.println("\\n\\nReposta:"+resposta+"\n\n");
 		Matcher matcher = REGEX_ITEMS.matcher(resposta);
 		if (!matcher.find()) {
 			throw new IllegalArgumentException("Não encontrou items. API tradu");
 		}
 
-		System.out.println("\n\n"+matcher+"\n\n");
+		//System.out.println("\n\n"+matcher+"\n\n");
 		String[] items = matcher.group(1).split("\\}}");
 		
 		String foods = null;
@@ -80,7 +80,7 @@ public class DietService {
 			break;
 		}
 		
-		System.out.println(foods);
+		//System.out.println(foods);
 		
 		return foods;
 	}
@@ -91,7 +91,7 @@ public class DietService {
 		String entrada = foods;
 		
 		entrada = URLEncoder.encode(entrada, StandardCharsets.UTF_8);
-		System.out.println("Chegando: "+entrada);
+		//System.out.println("Chegando: "+entrada);
 		
 		AsyncHttpClient client = new DefaultAsyncHttpClient();
 		response = client.prepareGet("https://calorieninjas.p.rapidapi.com/v1/nutrition?query="+entrada)
@@ -103,7 +103,7 @@ public class DietService {
 			.getResponseBody();
 		
 		response = response.replace(" ", "");
-		System.out.println("\n\n\n\n\n"+response+"\n\n\n\n");
+		//System.out.println("\n\n\n\n\n"+response+"\n\n\n\n");
 		
 		try{
 			client.close();

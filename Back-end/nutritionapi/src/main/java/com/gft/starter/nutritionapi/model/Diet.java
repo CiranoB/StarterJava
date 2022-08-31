@@ -8,8 +8,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -29,11 +31,16 @@ public class Diet {
 	
 	private Float kcalDiet;
 	
+	@NotNull
 	private String foodsDiet;
 
 	@OneToMany(mappedBy="diet", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("diet")
 	private List<Group> group;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Nutritionist nutritionist;
 
 	public UUID getUuidDiet() {
 		return uuidDiet;
@@ -66,5 +73,13 @@ public class Diet {
 	public void setGroup(List<Group> group) {
 		this.group = group;
 	}
-	
+
+	public Nutritionist getNutritionist() {
+		return nutritionist;
+	}
+
+	public void setNutritionist(Nutritionist nutritionist) {
+		this.nutritionist = nutritionist;
+	}
+
 }
