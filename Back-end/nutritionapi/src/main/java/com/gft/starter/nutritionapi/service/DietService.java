@@ -11,10 +11,14 @@ import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.starter.nutritionapi.model.Diet;
+import com.gft.starter.nutritionapi.model.Nutritionist;
 import com.gft.starter.nutritionapi.repository.DietRepository;
+import com.gft.starter.nutritionapi.repository.NutritionistRepository;
 
 @Service
 public class DietService {
@@ -24,11 +28,18 @@ public class DietService {
 	@Autowired
 	DietRepository dietRepository;
 	
+	@Autowired
+	NutritionistRepository nutritionistRepository;
+	
 	public Optional<Diet> criandoDieta(Diet diet){
 		
-		diet.setKcalDiet(acessandoApiNutri(acessandoApiTraducao(diet.getFoodsDiet())));
-		
-		return Optional.of(dietRepository.save(diet));
+		Optional<Nutritionist> nutritionist = nutritionistRepository.findById(diet.getNutritionist().getUuidPerson());
+		if(nutritionist.get().isStatusNutritionist()) {
+			diet.setKcalDiet(acessandoApiNutri(acessandoApiTraducao(diet.getFoodsDiet())));
+			
+			return Optional.of(dietRepository.save(diet));	
+		}
+		throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Nutricionista desativado", null);
 	}
 	
 	public Optional<Diet> atualizandoDieta(Diet diet){
@@ -50,7 +61,7 @@ public class DietService {
 		resposta = client.preparePost("https://google-translate1.p.rapidapi.com/language/translate/v2")
 			.setHeader("content-type", "application/x-www-form-urlencoded")
 			.setHeader("Accept-Encoding", "application/gzip")
-			.setHeader("X-RapidAPI-Key", "10d7a5b1aamshae6b8eea268bea9p17ba22jsn3050dc60d25c")
+			.setHeader("X-RapidAPI-Key", "3a5ce2784dmsh7391373d5c6013dp1e6befjsn312c0dd62df7")
 			.setHeader("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
 			.setBody("q="+entrada+"&target=en&source=pt")
 			.execute()
@@ -64,7 +75,7 @@ public class DietService {
 			e.printStackTrace();
 		}
 		
-		//System.out.println("\\n\\nReposta:"+resposta+"\n\n");
+		System.out.println("\n\nReposta:"+resposta+"\n\n");
 		Matcher matcher = REGEX_ITEMS.matcher(resposta);
 		if (!matcher.find()) {
 			throw new IllegalArgumentException("Não encontrou items. API tradu");

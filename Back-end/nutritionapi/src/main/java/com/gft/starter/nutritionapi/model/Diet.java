@@ -38,8 +38,9 @@ public class Diet {
 	@JsonIgnoreProperties("diet")
 	private List<Group> group;
 	
+	@NotNull
 	@ManyToOne
-	@JsonIgnoreProperties("postagem")
+	@JsonIgnoreProperties("diet")
 	private Nutritionist nutritionist;
 
 	public UUID getUuidDiet() {
