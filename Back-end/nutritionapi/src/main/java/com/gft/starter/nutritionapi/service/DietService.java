@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,16 +12,16 @@ import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.starter.nutritionapi.model.Diet;
-import com.gft.starter.nutritionapi.model.Nutritionist;
 import com.gft.starter.nutritionapi.repository.DietRepository;
-import com.gft.starter.nutritionapi.repository.NutritionistRepository;
 
 @Service
+@EnableAsync
 public class DietService {
 
 	private static final Pattern REGEX_ITEMS = Pattern.compile(".*\\[(.+)\\].*");
@@ -28,32 +29,23 @@ public class DietService {
 	@Autowired
 	DietRepository dietRepository;
 	
-	@Autowired
-	NutritionistRepository nutritionistRepository;
-	
 	public Optional<Diet> criandoDieta(Diet diet){
+		/*Consumindo API de tradução
+		diet.setKcalDiet(acessandoApiNutri(acessandoApiTraducao(diet.getFoodsDiet())));*/
 		
-		Optional<Nutritionist> nutritionist = nutritionistRepository.findById(diet.getNutritionist().getUuidPerson());
-		if(nutritionist.get().isStatusNutritionist()) {
-			diet.setKcalDiet(acessandoApiNutri(acessandoApiTraducao(diet.getFoodsDiet())));
-			
-			return Optional.of(dietRepository.save(diet));	
-		}
-		throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Nutricionista desativado", null);
+		//Sem consumir a API de tradução:
+		return Optional.of(dietRepository.save(diet));
 	}
 	
 	public Optional<Diet> atualizandoDieta(Diet diet){
 		
 		if(dietRepository.findById(diet.getUuidDiet()).isPresent()) {
-			
-			diet.setKcalDiet(acessandoApiNutri(acessandoApiTraducao(diet.getFoodsDiet())));
-			
 			return Optional.ofNullable(dietRepository.save(diet));
 		}
-		
 		return Optional.empty();
 	}
 	
+	/*
 	private String acessandoApiTraducao(String comidas) {
 		String entrada = comidas;
 		String resposta;
@@ -95,9 +87,12 @@ public class DietService {
 		
 		return foods;
 	}
+	*/
 	
-	
-	private Float acessandoApiNutri(String foods) {
+	@Async
+	public Future<Float> acessandoApiNutri(String foods) {
+		
+		System.out.println("oi2");
 		String response;
 		String entrada = foods;
 		
@@ -122,7 +117,7 @@ public class DietService {
 			e.printStackTrace();
 		}
 		
-		Float KcalDiet=(float) 0.0;
+		float KcalDiet= (float) 0.1;
 		
 		Matcher matcher = REGEX_ITEMS.matcher(response);
 		if (!matcher.find()) {
@@ -138,8 +133,8 @@ public class DietService {
 			JSONObject jsonObject = new JSONObject(item);
 			KcalDiet+=jsonObject.getFloat("calories");
 		}
-		
-		return KcalDiet;
+		System.out.println("Antes:"+KcalDiet);
+		return new AsyncResult<Float>(KcalDiet);
 	}
 
 }
