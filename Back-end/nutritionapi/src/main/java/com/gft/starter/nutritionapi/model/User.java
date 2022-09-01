@@ -1,8 +1,11 @@
 package com.gft.starter.nutritionapi.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 //Declaração de entidade e nome da tabela do banco de dados
 @Entity
@@ -32,7 +35,9 @@ public class User extends Person {
 	@NotNull
 	private String costUser;
 
-	
+	@ManyToOne
+	@JsonIgnoreProperties("user")
+	private Group group;
 	
 
 	public User(@NotNull boolean statusUser, @NotNull String objectiveUser, @NotNull int heightUser,
@@ -49,9 +54,19 @@ public class User extends Person {
 	}
 
 	//getters e setters
+	
+	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
 	public boolean isStatusUser() {

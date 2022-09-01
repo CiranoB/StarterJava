@@ -1,12 +1,15 @@
 package com.gft.starter.nutritionapi.model;
 
+import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -39,6 +42,10 @@ public class Group {
 	@Column(name = "maxKcalGroup", columnDefinition = "decimal(15,2)", nullable = false)
 	private Float maxKcalGroup;
 	
+	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("group")
+	private List<User> user;
+	
 	//Relacionamento entre tabela de Group e diet
 	@ManyToOne
 	@JsonIgnoreProperties("group")
@@ -65,8 +72,18 @@ public class Group {
 	}
 
 	//Gerando getter and setters
+	
+	
 	public UUID getUuidGroup() {
 		return uuidGroup;
+	}
+
+	public List<User> getUser() {
+		return user;
+	}
+
+	public void setUser(List<User> user) {
+		this.user = user;
 	}
 
 	public void setUuidGroup(UUID uuidGroup) {
