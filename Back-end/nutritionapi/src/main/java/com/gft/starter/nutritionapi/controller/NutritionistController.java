@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gft.starter.nutritionapi.model.Nutritionist;
+import com.gft.starter.nutritionapi.model.Person;
 import com.gft.starter.nutritionapi.repository.NutritionistRepository;
+import com.gft.starter.nutritionapi.service.PersonService;
 
 @RequestMapping("/nutritionist")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -28,6 +30,9 @@ public class NutritionistController {
 	
 	@Autowired
 	NutritionistRepository nutritionistRepository;
+	
+	@Autowired
+	private PersonService personService;
 	
 	@GetMapping
 	public ResponseEntity<List<Nutritionist>> getAll(){
@@ -41,8 +46,10 @@ public class NutritionistController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<Nutritionist> post (@Valid @RequestBody Nutritionist nutritionist){
-		return ResponseEntity.status(HttpStatus.CREATED).body(nutritionistRepository.save(nutritionist));
+	public ResponseEntity<Nutritionist> post (@Valid @RequestBody Nutritionist oNutritionist){
+		Person oPerson = (oNutritionist);
+		oNutritionist.setPasswordPerson(personService.registerPerson(oPerson).get().getPasswordPerson());
+		return ResponseEntity.status(HttpStatus.CREATED).body(nutritionistRepository.save(oNutritionist));
 	}
 	
 	@PutMapping("/update")

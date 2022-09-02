@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.gft.starter.nutritionapi.model.Person;
 import com.gft.starter.nutritionapi.model.User;
 import com.gft.starter.nutritionapi.repository.UserRepository;
+import com.gft.starter.nutritionapi.service.PersonService;
 
 @RequestMapping("/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -26,7 +29,10 @@ import com.gft.starter.nutritionapi.repository.UserRepository;
 public class UserController {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
+	
+	@Autowired
+	private PersonService personService;
 	
 	@GetMapping
 	public ResponseEntity<List<User>> getAll(){
@@ -40,8 +46,10 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<User> post (@Valid @RequestBody User user){
-		return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(user));
+	public ResponseEntity<User> post (@Valid @RequestBody User oUser){
+		Person oPerson = (oUser);
+		oUser.setPasswordPerson(personService.registerPerson(oPerson).get().getPasswordPerson());
+		return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(oUser));
 	}
 	
 	@PutMapping("/update")

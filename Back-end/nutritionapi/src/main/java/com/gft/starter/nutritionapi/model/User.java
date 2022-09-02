@@ -11,8 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="tb_user")
 public class User extends Person {
-
-	
 	
 	@NotNull
 	private boolean statusUser;

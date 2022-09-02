@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.gft.starter.nutritionapi.model.Bookkeeper;
+import com.gft.starter.nutritionapi.model.Person;
 import com.gft.starter.nutritionapi.repository.BookkeeperRepository;
+import com.gft.starter.nutritionapi.service.PersonService;
 
 
 @RequestMapping("/bookkeeper")
@@ -28,6 +30,9 @@ public class BookkeeperController {
 
 	@Autowired
 	BookkeeperRepository bookkeeperRepository;
+	
+	@Autowired
+	private PersonService personService;
 	
 	@GetMapping
 	public ResponseEntity<List<Bookkeeper>> getAll(){
@@ -41,8 +46,10 @@ public class BookkeeperController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<Bookkeeper> post (@Valid @RequestBody Bookkeeper bookkeeper){
-		return ResponseEntity.status(HttpStatus.CREATED).body(bookkeeperRepository.save(bookkeeper));
+	public ResponseEntity<Bookkeeper> post (@Valid @RequestBody Bookkeeper oBookkeeper){
+		Person oPerson = (oBookkeeper);
+		oBookkeeper.setPasswordPerson(personService.registerPerson(oPerson).get().getPasswordPerson());
+		return ResponseEntity.status(HttpStatus.CREATED).body(bookkeeperRepository.save(oBookkeeper));
 	}
 	
 	@PutMapping("/update")

@@ -1,14 +1,19 @@
 package com.gft.starter.nutritionapi.model;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,40 +22,44 @@ import org.hibernate.annotations.Type;
 
 //MappedSuperclass informa ao programa que esta classe se trata de um superclass e que a função dela é só atribuir
 //Inheritance informa como vai funcionar a herança
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@DiscriminatorColumn(name="TYPE")
+//Usando o joined, fará a tabela de pessoa e as outras vinculadas
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "TYPE")
+@Table(name = "tb_person")
 public class Person {
-	
-	
-	//Gerador UUID
+
+	// Gerador UUID
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "uuidPerson", columnDefinition = "char(36)")
 	@Type(type = "org.hibernate.type.UUIDCharType")
 	private UUID uuidPerson;
-	
+
 	@NotNull
 	private String namePerson;
-	
+
 	@NotNull
-	@Size(min=11,max=11)
+	@Size(min = 11, max = 11)
 	private String cpfPerson;
-	
+
 	@NotNull
 	private int agePerson;
-	
+
 	@NotNull
-	@Size(min=5, max=100)
+	@Size(min = 5, max = 100)
 	private String loginPerson;
-	
+
 	@NotNull
-	@Size(min=5, max=100)
+	@Size(min = 5, max = 100)
 	private String passwordPerson;
 
-	
-	//getters e setters
+	@ManyToMany
+	@JoinTable(name = "tb_person_role", joinColumns = @JoinColumn(name = "uuid_person"), inverseJoinColumns = @JoinColumn(name = "uuid_role"))
+	private List<Role> roles;
+
+	// getters e setters
 	public UUID getUuidPerson() {
 		return uuidPerson;
 	}
@@ -97,5 +106,13 @@ public class Person {
 
 	public void setPasswordPerson(String passwordPerson) {
 		this.passwordPerson = passwordPerson;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 }
