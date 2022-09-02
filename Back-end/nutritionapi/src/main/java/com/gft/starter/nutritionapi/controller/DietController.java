@@ -30,7 +30,7 @@ import com.gft.starter.nutritionapi.repository.NutritionistRepository;
 import com.gft.starter.nutritionapi.service.DietService;
 
 @RequestMapping("/diet")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @EnableAsync
 public class DietController {
