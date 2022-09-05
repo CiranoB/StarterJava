@@ -17,6 +17,8 @@ public class BasicSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.httpBasic().and().authorizeHttpRequests()
 		.antMatchers("/user/register").permitAll()
+		.antMatchers("/user/nutritionist").permitAll()
+		.antMatchers("/user/bookkeeper").permitAll()
 		.antMatchers("/logar").permitAll()
 		.anyRequest().authenticated().and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors().and().csrf().disable();

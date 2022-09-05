@@ -45,11 +45,13 @@ public class DietController {
 	@Autowired
 	DietService dietService;
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/all")
 	public ResponseEntity<List<Diet>> getAll() {
 		return ResponseEntity.ok(dietRepository.findAll());
 	}
 
+	@PreAuthorize("hasRole('ROLE_NUTRITIONIST', 'ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("/find/{uuid}")
 	public ResponseEntity<Diet> getById(@PathVariable UUID uuid) {
 		return dietRepository.findById(uuid).map(resp -> ResponseEntity.ok(resp))
@@ -83,6 +85,7 @@ public class DietController {
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 
+	@PreAuthorize("hasRole('ROLE_NUTRITIONIST')")
 	@PutMapping("/update")
 	public ResponseEntity<Diet> put(@Valid @RequestBody Diet diet) throws ExecutionException {
 		Optional<Nutritionist> nutritionist = nutritionistRepository.findById(diet.getNutritionist().getUuidPerson());
@@ -110,7 +113,7 @@ public class DietController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
-	@PreAuthorize("hasRole('ROLE_NUTRITIONIST')")
+	@PreAuthorize("hasRole('ROLE_NUTRITIONIST', 'ROLE_ADMIN')")
 	@DeleteMapping("/delete/{uuid}")
 	public void delete(@PathVariable UUID uuid) {
 		dietRepository.deleteById(uuid);

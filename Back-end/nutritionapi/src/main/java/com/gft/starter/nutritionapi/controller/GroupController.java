@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,17 +34,20 @@ public class GroupController {
 	@Autowired
 	private DietRepository dietRepository;
 
+	@PreAuthorize("hasRole('ROLE_NUTRITIONIST', 'ROLE_ADMIN')")
 	@GetMapping("/all")
 	public ResponseEntity<List<Group>> getAll() {
 		return ResponseEntity.ok(groupRepository.findAll());
 	}
 
+	@PreAuthorize("hasRole('ROLE_NUTRITIONIST', 'ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("/find/{uuidGroup}")
 	public ResponseEntity<Group> getById(@PathVariable UUID uuidGroup) {
 		return groupRepository.findById(uuidGroup).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 
+	@PreAuthorize("hasRole('ROLE_NUTRITIONIST', 'ROLE_ADMIN')")
 	@PostMapping("/register")
 	public ResponseEntity<Group> post(@Valid @RequestBody Group group) {
 		if (dietRepository.existsById(group.getDiet().getUuidDiet())) {
@@ -52,6 +56,7 @@ public class GroupController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 
+	@PreAuthorize("hasRole('ROLE_NUTRITIONIST', 'ROLE_ADMIN')")
 	@PutMapping("/update")
 	public ResponseEntity<Group> put(@Valid @RequestBody Group group) {
 		if (groupRepository.existsById(group.getUuidGroup())) {
@@ -63,6 +68,7 @@ public class GroupController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/delete")
 	//O ? significa que eu não sei que tipo de retorno ele dará para o response
 	public ResponseEntity<?> delete(@PathVariable UUID uuidGroup){

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,11 +35,13 @@ public class NutritionistController {
 	@Autowired
 	private PersonService personService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping
 	public ResponseEntity<List<Nutritionist>> getAll(){
 		return ResponseEntity.ok(nutritionistRepository.findAll());
 	}
 	
+	@PreAuthorize("hasRole('ROLE_NUTRITIONIST', 'ROLE_ADMIN')")
 	@GetMapping("/find/{uuidNutritionist}")
 	public ResponseEntity<Nutritionist> getById(@PathVariable UUID uuidNutritionist){
 		return nutritionistRepository.findById(uuidNutritionist).map(resp -> ResponseEntity.ok(resp))
@@ -52,11 +55,13 @@ public class NutritionistController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(nutritionistRepository.save(oNutritionist));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_NUTRITIONIST', 'ROLE_ADMIN')")
 	@PutMapping("/update")
 	public ResponseEntity<Nutritionist> put(@Valid @RequestBody Nutritionist nutritionist){
 		return ResponseEntity.ok(nutritionistRepository.save(nutritionist));
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/delete/{uuidNutritionist}")
 	public void delete(@PathVariable UUID uuidNutritionist) {
 		nutritionistRepository.deleteById(uuidNutritionist);
