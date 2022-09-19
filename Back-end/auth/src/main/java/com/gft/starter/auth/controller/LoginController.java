@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gft.starter.auth.controller.service.AuthenticationService;
+import com.gft.starter.auth.service.AuthenticationService;
 import com.gft.starter.auth.utility.JwtUtility;
+import com.gft.starter.core.model.Bookkeeper;
 import com.gft.starter.core.model.JwtToken;
 import com.gft.starter.core.model.Nutritionist;
 import com.gft.starter.core.model.PersonLogin;
+import com.gft.starter.core.model.User;
 
 @RestController
 @CrossOrigin(origins="*", allowedHeaders="*")
@@ -44,11 +46,23 @@ public class LoginController {
 	
 	@PostMapping("/register/nutritionist")
 	public ResponseEntity<Nutritionist> post (@Valid @RequestBody Nutritionist nutritionist){
-		//Person oPerson = (oNutritionist);
-		//oNutritionist.setPasswordPerson(personService.registerPerson(oPerson).get().getPasswordPerson());
-		return authenticationService.cadastrarUsuario(nutritionist)
+		return authenticationService.cadastrarNutritionist(nutritionist)
 				.map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
-
+	
+	@PostMapping("/register/bookkeeper")
+	public ResponseEntity<Bookkeeper> post (@Valid @RequestBody Bookkeeper bookkeeper){
+		return authenticationService.cadastrarBookkeeper(bookkeeper)
+				.map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
+				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+	}
+	
+	@PostMapping("/register/user")
+	public ResponseEntity<User> post (@Valid @RequestBody User user){
+		return authenticationService.cadastrarUser(user)
+				.map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
+				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+	}
+	
 }

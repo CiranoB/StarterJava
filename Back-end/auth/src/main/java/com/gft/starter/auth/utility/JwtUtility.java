@@ -10,7 +10,6 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.gft.starter.core.model.Person;
 import com.gft.starter.core.model.PersonLogin;
 import com.gft.starter.core.repository.PersonRepository;
 
