@@ -3,31 +3,35 @@
     font-weight: bold !important;
 }
 
-.imagens{
-    width: 800px;
-    height: 500px;
+.subtitulo{
+    padding-bottom: 5%;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.image{
+    width: 400px;
+    height: 360px;
     /* Centralizando imagem */
-    display: block;
     margin: 0 auto;
+    object-fit: cover;
 }
 
 .caixa{
-    background-color: #3F51B5; 
+    background-color: #7CB6B5; 
 }
 
 .botao{
     border-color: white !important;
-    background-color: #3F51B5;
+    background-color: #D8D8D4 !important;
     color: white !important;
 }
 
-.postagens{
-    background-color: white;
+.howitworks{
+    background-color: #D8D8D4; 
 }
 
-.verpost{
-    border-color: white !important;
-    background-color: #3F51B5;
-    color: white !important;
-    margin-bottom: 100px;
+.titulo2{
+    color: #7CB6B5 !important;
+    font-weight: bold !important;
 }
