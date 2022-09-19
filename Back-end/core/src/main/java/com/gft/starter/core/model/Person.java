@@ -51,7 +51,7 @@ public class Person {
 	@Size(min = 5, max = 100)
 	private String passwordPerson;
 	
-	private boolean role;
+	private boolean admin;
 
 	// getters e setters
 	public UUID getUuidPerson() {
@@ -102,11 +102,11 @@ public class Person {
 		this.passwordPerson = passwordPerson;
 	}
 
-	public boolean isRole() {
-		return role;
+	public boolean isAdmin() {
+		return admin;
 	}
 
-	public void setRole(boolean role) {
-		this.role = role;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 }

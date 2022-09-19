@@ -38,7 +38,7 @@ public class AuthenticationService {
 		}
 
 		nutritionist.setPasswordPerson(criptografarSenha(nutritionist.getPasswordPerson()));
-		nutritionist.setRole(true);
+		nutritionist.setAdmin(true);
 		return Optional.of(nutritionistRepository.save(nutritionist));
 	}
 	
@@ -48,7 +48,7 @@ public class AuthenticationService {
 		}
 
 		user.setPasswordPerson(criptografarSenha(user.getPasswordPerson()));
-		user.setRole(false);
+		user.setAdmin(false);
 		return Optional.of(userRepository.save(user));
 	}
 	
@@ -58,7 +58,7 @@ public class AuthenticationService {
 		}
 
 		bookkeeper.setPasswordPerson(criptografarSenha(bookkeeper.getPasswordPerson()));
-		bookkeeper.setRole(true);
+		bookkeeper.setAdmin(true);
 		return Optional.of(bookkeeperRepository.save(bookkeeper));
 	}
 

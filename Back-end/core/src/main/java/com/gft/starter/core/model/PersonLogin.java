@@ -8,13 +8,14 @@ public class PersonLogin {
 	private UUID uuidPerson;
 	private String loginPerson;
 	private String passwordPerson;
-	private boolean role;
+	private String token;
+	private boolean admin;
 	
 	public PersonLogin(Optional<Person> person) {
 		this.uuidPerson = person.get().getUuidPerson();
 		this.loginPerson = person.get().getLoginPerson();
 		this.passwordPerson = person.get().getPasswordPerson();
-		this.role = person.get().isRole();
+		this.admin = person.get().isAdmin();
 	}
 	
 	public PersonLogin() {}
@@ -37,10 +38,19 @@ public class PersonLogin {
 	public void setPasswordPerson(String passwordPerson) {
 		this.passwordPerson = passwordPerson;
 	}
-	public boolean isRole() {
-		return role;
+	public boolean isAdmin() {
+		return admin;
 	}
-	public void setRole(boolean role) {
-		this.role = role;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
 }

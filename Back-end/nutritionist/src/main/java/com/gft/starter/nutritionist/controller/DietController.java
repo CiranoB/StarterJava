@@ -1,7 +1,6 @@
 package com.gft.starter.nutritionist.controller;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -20,14 +19,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.starter.core.model.Diet;
-import com.gft.starter.core.model.Nutritionist;
 import com.gft.starter.core.repository.DietRepository;
 import com.gft.starter.core.repository.NutritionistRepository;
+import com.gft.starter.nutritionist.service.AuthorizationService;
 import com.gft.starter.nutritionist.service.DietService;
 
 @RequestMapping("/nutritionist/diet")
@@ -35,7 +35,9 @@ import com.gft.starter.nutritionist.service.DietService;
 @RestController
 @EnableAsync
 public class DietController {
-
+	@Autowired
+	AuthorizationService authorization;
+	
 	@Autowired
 	DietRepository dietRepository;
 
@@ -46,22 +48,21 @@ public class DietController {
 	DietService dietService;
 
 	@GetMapping("/all")
-	public ResponseEntity<List<Diet>> getAll() {
+	public ResponseEntity<List<Diet>> getAll(@RequestHeader(value = "Authorization") String token) {
+		authorization.checkPermissions(token);
 		return ResponseEntity.ok(dietRepository.findAll());
 	}
 
 	@GetMapping("/find/{uuid}")
-	public ResponseEntity<Diet> getById(@PathVariable UUID uuid) {
+	public ResponseEntity<Diet> getById(@RequestHeader(value = "Authorization") String token, @PathVariable UUID uuid) {
+		authorization.checkPermissions(token);
 		return dietRepository.findById(uuid).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<Diet> post(@Valid @RequestBody Diet diet) throws ExecutionException, JSONException {
-		Optional<Nutritionist> nutritionist = nutritionistRepository.findById(diet.getNutritionist().getUuidPerson());
-		if (!nutritionist.get().isStatusNutritionist()) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Nutricionista desativado", null);
-		}
+	public ResponseEntity<Diet> post(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody Diet diet) throws ExecutionException, JSONException {
+		authorization.checkPermissions(token);
 
 		Future<Double> caloria = dietService.acessandoApiNutri(diet.getFoodsDiet());
 
@@ -83,12 +84,9 @@ public class DietController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Diet> put(@Valid @RequestBody Diet diet) throws ExecutionException, JSONException {
-		Optional<Nutritionist> nutritionist = nutritionistRepository.findById(diet.getNutritionist().getUuidPerson());
-		if (!nutritionist.get().isStatusNutritionist()) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Nutricionista desativado", null);
-		}
-
+	public ResponseEntity<Diet> put(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody Diet diet) throws ExecutionException, JSONException {
+		authorization.checkPermissions(token);
+		
 		Future<Double> caloria = dietService.acessandoApiNutri(diet.getFoodsDiet());
 
 		try {
@@ -110,7 +108,8 @@ public class DietController {
 	}
 
 	@DeleteMapping("/delete/{uuidDiet}")
-	public void delete(@PathVariable UUID uuidDiet) {
+	public void delete(@RequestHeader(value = "Authorization") String token, @PathVariable UUID uuidDiet) {
+		authorization.checkPermissions(token);
 		dietRepository.deleteById(uuidDiet);
 	}
 }

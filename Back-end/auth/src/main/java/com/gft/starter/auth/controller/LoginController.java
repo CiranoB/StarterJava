@@ -33,15 +33,12 @@ public class LoginController {
 	private AuthenticationService  authenticationService;
 
 	@PostMapping("/login")
-	public JwtToken authenticate(@RequestBody PersonLogin personLogin) throws Exception {
+	public Optional<PersonLogin> authenticate(@RequestBody PersonLogin personLogin) throws Exception {
 		
 		Optional<PersonLogin> authPersonLogin = authenticationService.autenticarUsuario(personLogin);
-		System.out.println(authPersonLogin.get().getUuidPerson());
-		
 		final String token = jwtUtility.generateToken(authPersonLogin);
-		
-		return new JwtToken(token);
-		 
+		authPersonLogin.get().setToken(token);
+		return authPersonLogin;
 	}
 	
 	@PostMapping("/register/nutritionist")

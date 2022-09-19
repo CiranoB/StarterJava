@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gft.starter.bookkeeper.service.AuthorizationService;
 import com.gft.starter.core.model.Pay;
 import com.gft.starter.core.repository.BookkeeperRepository;
 import com.gft.starter.core.repository.PayRepository;
@@ -27,7 +29,9 @@ import com.gft.starter.core.repository.UserRepository;
 @RequestMapping("/bookkeeper/pay")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PayController {
-
+	@Autowired
+	AuthorizationService authorization;
+	
 	@Autowired
 	PayRepository payRepository;
 
@@ -43,13 +47,15 @@ public class PayController {
 	}
 
 	@GetMapping("/find/{uuidPay}")
-	public ResponseEntity<Pay> getById(@PathVariable UUID uuidPay) {
+	public ResponseEntity<Pay> getById(@RequestHeader(value = "Authorization") String token, @PathVariable UUID uuidPay) {
+		authorization.checkPermissions(token);
 		return payRepository.findById(uuidPay).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<Pay> post(@Valid @RequestBody Pay pay) {
+	public ResponseEntity<Pay> post(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody Pay pay) {
+		authorization.checkPermissions(token);
 		if ((userRepository.existsById(pay.getUser().getUuidPerson()))
 				&& (bookkeeperRepository.existsById(pay.getBookkeeper().getUuidPerson()))) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(payRepository.save(pay));
@@ -60,7 +66,8 @@ public class PayController {
 	//quando for dar baixa como pago, utilizar o atualizar para mandar a
 	//data de pagamento do valor
 	@PutMapping("/update")
-	public ResponseEntity<Pay> put(@Valid @RequestBody Pay pay) {
+	public ResponseEntity<Pay> put(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody Pay pay) {
+		authorization.checkPermissions(token);
 		if (payRepository.existsById(pay.getUuidPay())) {
 			if ((userRepository.existsById(pay.getUser().getUuidPerson()))
 					&& (bookkeeperRepository.existsById(pay.getBookkeeper().getUuidPerson()))) {
@@ -72,7 +79,8 @@ public class PayController {
 	}
 
 	@DeleteMapping("/delete/{uuidPay}")
-	public void delete(@PathVariable UUID uuid) {
+	public void delete(@RequestHeader(value = "Authorization") String token, @PathVariable UUID uuid) {
+		authorization.checkPermissions(token);
 		payRepository.deleteById(uuid);
 	}
 }

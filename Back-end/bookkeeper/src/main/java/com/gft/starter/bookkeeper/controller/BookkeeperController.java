@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gft.starter.bookkeeper.service.AuthorizationService;
 import com.gft.starter.core.model.Bookkeeper;
 import com.gft.starter.core.repository.BookkeeperRepository;
 
@@ -26,27 +28,33 @@ import com.gft.starter.core.repository.BookkeeperRepository;
 public class BookkeeperController {
 
 	@Autowired
+	AuthorizationService authorization;
+	
+	@Autowired
 	BookkeeperRepository bookkeeperRepository;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Bookkeeper>> getAll(){
+	public ResponseEntity<List<Bookkeeper>> getAll(@RequestHeader(value = "Authorization") String token){
+		authorization.checkPermissions(token);
 		return ResponseEntity.ok(bookkeeperRepository.findAll());
 	}
 	
 	@GetMapping("/find/{uuidBookkeeper}")
-	public ResponseEntity<Bookkeeper> getById(@PathVariable UUID uuidBookkeeper){
+	public ResponseEntity<Bookkeeper> getById(@RequestHeader(value = "Authorization") String token, @PathVariable UUID uuidBookkeeper){
+		authorization.checkPermissions(token);
 		return bookkeeperRepository.findById(uuidBookkeeper).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());	
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Bookkeeper> put(@Valid @RequestBody Bookkeeper bookkeeper){
+	public ResponseEntity<Bookkeeper> put(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody Bookkeeper bookkeeper){
+		authorization.checkPermissions(token);
 		return ResponseEntity.ok(bookkeeperRepository.save(bookkeeper));
 	}
 	
 	@DeleteMapping("/delete/{uuidPerson}")
-	public void delete(@PathVariable UUID uuid) {
+	public void delete(@RequestHeader(value = "Authorization") String token, @PathVariable UUID uuid) {
+		authorization.checkPermissions(token);
 		bookkeeperRepository.deleteById(uuid);
 	}
-	
 }
