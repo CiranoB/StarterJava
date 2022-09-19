@@ -22,12 +22,12 @@ import com.gft.starter.core.model.Group;
 import com.gft.starter.core.repository.DietRepository;
 import com.gft.starter.core.repository.GroupRepository;
 
-@RestController // Definir que é uma controller
-@RequestMapping("/nutritionist/group") // O caminho da url que acessará
-@CrossOrigin(origins = "*", allowedHeaders = "*") // Permitir que venha de qualquer página a requisição
+@RestController
+@RequestMapping("/nutritionist/group")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class GroupController {
 
-	@Autowired // injeção de dependência
+	@Autowired 
 	private GroupRepository groupRepository;
 
 	@Autowired

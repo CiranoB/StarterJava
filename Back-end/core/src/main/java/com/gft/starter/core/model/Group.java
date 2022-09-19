@@ -16,13 +16,10 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-//Definindo que é uma model e o nome da tabela
 @Entity
 @Table(name = "tb_group")
 public class Group {
 
-	// Gerando chave primária, que será o UUID
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -46,12 +43,11 @@ public class Group {
 	@JsonIgnoreProperties("group")
 	private List<User> user;
 	
-	//Relacionamento entre tabela de Group e diet
 	@ManyToOne
 	@JsonIgnoreProperties("group")
 	private Diet diet;
 
-	//Metódos construtores
+	
 	public Group(UUID uuidGroup, String costGroup, String restrictionGroup, Float minKcalGroup, Float maxKcalGroup,
 			Diet diet) {
 		this.uuidGroup = uuidGroup;
@@ -70,8 +66,6 @@ public class Group {
 		this.maxKcalGroup = null;
 		this.diet = null;
 	}
-
-	//Gerando getter and setters
 	
 	
 	public UUID getUuidGroup() {

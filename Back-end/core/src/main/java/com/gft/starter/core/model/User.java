@@ -1,13 +1,16 @@
 package com.gft.starter.core.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-//Declaração de entidade e nome da tabela do banco de dados
 @Entity
 @Table(name="tb_user")
 public class User extends Person {
@@ -37,6 +40,9 @@ public class User extends Person {
 	@JsonIgnoreProperties("user")
 	private Group group;
 	
+	@OneToMany(mappedBy="user", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("user")
+	private List<Pay> pay;
 
 	public User(@NotNull boolean statusUser, @NotNull String objectiveUser, @NotNull int heightUser,
 			@NotNull Float weightUser, @NotNull Float bmrUser, @NotNull String restrictionUser,
@@ -123,6 +129,11 @@ public class User extends Person {
 		this.costUser = costUser;
 	}
 
-	
-	
+	public List<Pay> getPay() {
+		return pay;
+	}
+
+	public void setPay(List<Pay> pay) {
+		this.pay = pay;
+	}
 }

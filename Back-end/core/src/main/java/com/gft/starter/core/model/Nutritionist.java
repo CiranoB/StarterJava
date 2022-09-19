@@ -46,7 +46,6 @@ public class Nutritionist extends Person{
 
 	public Nutritionist() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	//getters e setters

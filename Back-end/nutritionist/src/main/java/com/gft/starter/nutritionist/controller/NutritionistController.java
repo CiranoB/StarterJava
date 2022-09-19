@@ -38,7 +38,6 @@ public class NutritionistController {
 				.orElse(ResponseEntity.notFound().build());	
 	}
 
-	
 	@PutMapping("/update")
 	public ResponseEntity<Nutritionist> put(@Valid @RequestBody Nutritionist nutritionist){
 		return ResponseEntity.ok(nutritionistRepository.save(nutritionist));

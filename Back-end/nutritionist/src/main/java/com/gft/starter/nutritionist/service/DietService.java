@@ -93,12 +93,10 @@ public class DietService {
 	@Async
 	public Future<Double> acessandoApiNutri(String foods) throws JSONException {
 		
-		System.out.println("oi2");
 		String response;
 		String entrada = foods;
 		
 		entrada = URLEncoder.encode(entrada, StandardCharsets.UTF_8);
-		//System.out.println("Chegando: "+entrada);
 		
 		AsyncHttpClient client = new DefaultAsyncHttpClient();
 		response = client.prepareGet("https://calorieninjas.p.rapidapi.com/v1/nutrition?query="+entrada)
@@ -110,7 +108,6 @@ public class DietService {
 			.getResponseBody();
 		
 		response = response.replace(" ", "");
-		//System.out.println("\n\n\n\n\n"+response+"\n\n\n\n");
 		
 		try{
 			client.close();
@@ -134,7 +131,6 @@ public class DietService {
 			JSONObject jsonObject = new JSONObject(item);
 			KcalDiet+=jsonObject.getDouble("calories");
 		}
-		System.out.println("Antes:"+KcalDiet);
 		return new AsyncResult<Double>(KcalDiet);
 	}
 

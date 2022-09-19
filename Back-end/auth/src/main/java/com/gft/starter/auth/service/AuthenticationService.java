@@ -34,34 +34,31 @@ public class AuthenticationService {
 
 	public Optional<Nutritionist> cadastrarNutritionist(Nutritionist nutritionist) {
 		if (personRepository.findByLoginPerson(nutritionist.getLoginPerson()).isPresent()) {
-			System.out.println("Ta igual amigo");
 			return Optional.empty();
 		}
 
 		nutritionist.setPasswordPerson(criptografarSenha(nutritionist.getPasswordPerson()));
-
+		nutritionist.setRole(true);
 		return Optional.of(nutritionistRepository.save(nutritionist));
 	}
 	
 	public Optional<User> cadastrarUser(User user) {
 		if (personRepository.findByLoginPerson(user.getLoginPerson()).isPresent()) {
-			System.out.println("Ta igual amigo");
 			return Optional.empty();
 		}
 
 		user.setPasswordPerson(criptografarSenha(user.getPasswordPerson()));
-
+		user.setRole(false);
 		return Optional.of(userRepository.save(user));
 	}
 	
 	public Optional<Bookkeeper> cadastrarBookkeeper(Bookkeeper bookkeeper) {
 		if (personRepository.findByLoginPerson(bookkeeper.getLoginPerson()).isPresent()) {
-			System.out.println("Ta igual amigo");
 			return Optional.empty();
 		}
 
 		bookkeeper.setPasswordPerson(criptografarSenha(bookkeeper.getPasswordPerson()));
-
+		bookkeeper.setRole(true);
 		return Optional.of(bookkeeperRepository.save(bookkeeper));
 	}
 

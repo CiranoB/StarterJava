@@ -92,7 +92,7 @@ public class DietController {
 		Future<Double> caloria = dietService.acessandoApiNutri(diet.getFoodsDiet());
 
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2500);
 			if (!caloria.isDone()) {
 				throw new ResponseStatusException(HttpStatus.REQUEST_TIMEOUT, "API de nutrição não respondeu a tempo",
 						null);
