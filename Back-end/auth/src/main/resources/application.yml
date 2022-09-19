@@ -32,3 +32,15 @@ spring:
 
   jmx:
     enabled: false
+
+springdoc:
+  packagesToScan: com.gft.starter.auth.controller
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+
+    
