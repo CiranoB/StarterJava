@@ -1,4 +1,4 @@
-.containerLogin{
+.containerCadastro{
     min-height: 100vh;
     direction: row;
     justify-content: center;
@@ -15,8 +15,15 @@
 .boxCadastro{
     background-color: #F1F1F0;
     color: black;
-    width: 35%;
     border-radius: 25px;
     padding-top: 25px;
     padding-bottom: 25px;
+}
+
+.tabPanelCadastro{
+    padding: 0px !important;
+}
+
+.textoCadastro{
+    font-weight: bold!important;
 }
