@@ -1,0 +1,37 @@
+.titulo{
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.subtitulo{
+    padding-bottom: 4%;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.image{
+    width: 400px;
+    height: 360px;
+    /* Centralizando imagem */
+    margin: 0 auto;
+    object-fit: cover;
+}
+
+.caixa{
+    background-color: #7CB6B5; 
+}
+
+.botao{
+    border-color: white !important;
+    background-color: #D8D8D4 !important;
+    color: white !important;
+}
+
+.howitworks{
+    background-color: #D8D8D4; 
+}
+
+.titulo2{
+    color: #7CB6B5 !important;
+    font-weight: bold !important;
+}
