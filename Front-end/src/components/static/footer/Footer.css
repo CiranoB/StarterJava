@@ -1,0 +1,15 @@
+.containerFooter{
+    width: 100%;
+    background-color: #E6DED2;
+    min-height: 10vh;
+    display: flex;
+    justify-items: center;
+    justify-content: space-evenly;
+}
+
+.boxFooter{
+    background-color: aliceblue;
+    min-height: 5vh;
+    width: 30%;
+    margin: 1vh 0vw;
+}
