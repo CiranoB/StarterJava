@@ -54,9 +54,9 @@ export default function login() {
               <Box marginRight={1}>
                 <Typography variant="subtitle1" gutterBottom align="center">Não tem uma conta?</Typography>
               </Box>
-              {/* <Link to='/login'> */}
+              <Link to='/cadastrar'>
                 <Typography variant="subtitle1" gutterBottom align="center" className="textosLogin">Cadastre-se</Typography>
-              {/* </Link> */}
+              </Link>
             </Box>
           </Box>
         </Grid>
