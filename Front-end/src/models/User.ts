@@ -9,7 +9,7 @@ interface User {
     passwordPerson: string;
     admin: boolean;
     statusUser: boolean;
-    objectiveUser: boolean;
+    objectiveUser: string;
     heightUser: number;
     weightUser: number;
     bmrUser: number;

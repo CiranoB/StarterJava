@@ -1,22 +1,28 @@
-.containerFooter{
+.containerFooter {
     width: 100%;
     background-color: #E6DED2;
     min-height: 1vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-}
-
-.fFooter{
-    width: 100%;
     text-align: center;
 }
 
-.bolder{
+.boxFooter {
+    width: 23%;
+    margin: 1vh 1vw;
+}
+
+.hrFooter {
+    margin: 0.3vh 0vw;
+    border-top: 2px solid;
+}
+
+.bolder {
     font-weight: bolder !important;
 }
 
-.linkNone{
+.linkNone {
     text-decoration: none;
     color: black;
 }

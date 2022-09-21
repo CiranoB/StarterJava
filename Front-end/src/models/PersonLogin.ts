@@ -1,9 +1,9 @@
-interface PersonLogin{
+interface PersonLogin {
     uuidPerson: string;
     loginPerson: string;
     passwordPerson: string;
     token: string;
-    admin: boolean;
+    typePerson: string;
 }
 
 export default PersonLogin;

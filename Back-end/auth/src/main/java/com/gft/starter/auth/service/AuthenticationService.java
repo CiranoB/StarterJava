@@ -25,10 +25,10 @@ public class AuthenticationService {
 
 	@Autowired
 	private NutritionistRepository nutritionistRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private BookkeeperRepository bookkeeperRepository;
 
@@ -38,27 +38,27 @@ public class AuthenticationService {
 		}
 
 		nutritionist.setPasswordPerson(criptografarSenha(nutritionist.getPasswordPerson()));
-		nutritionist.setAdmin(true);
+		nutritionist.setTypePerson("nutritionist");
 		return Optional.of(nutritionistRepository.save(nutritionist));
 	}
-	
+
 	public Optional<User> cadastrarUser(User user) {
 		if (personRepository.findByLoginPerson(user.getLoginPerson()).isPresent()) {
 			return Optional.empty();
 		}
 
 		user.setPasswordPerson(criptografarSenha(user.getPasswordPerson()));
-		user.setAdmin(false);
+		user.setTypePerson("user");
 		return Optional.of(userRepository.save(user));
 	}
-	
+
 	public Optional<Bookkeeper> cadastrarBookkeeper(Bookkeeper bookkeeper) {
 		if (personRepository.findByLoginPerson(bookkeeper.getLoginPerson()).isPresent()) {
 			return Optional.empty();
 		}
 
 		bookkeeper.setPasswordPerson(criptografarSenha(bookkeeper.getPasswordPerson()));
-		bookkeeper.setAdmin(true);
+		bookkeeper.setTypePerson("bookkeeper");
 		return Optional.of(bookkeeperRepository.save(bookkeeper));
 	}
 

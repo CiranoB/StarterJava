@@ -1,0 +1,35 @@
+.fontFamily {
+    font-family: Delmon Delicate, sans-serif !important;
+}
+
+.navbar {
+    min-height: 5vh;
+    background-color: #c3baac !important;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menuNav {
+    display: flex;
+    margin-left: 1vw;
+    color: black;
+    align-items: center;
+}
+
+.buttonNav {
+    padding: 0.5vh 0.5vw;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.buttonNav:hover {
+    color: #c3baac;
+    background-color: black;
+}
