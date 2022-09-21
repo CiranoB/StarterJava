@@ -1,16 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import store from './store/store';
+import { Provider } from 'react-redux';
+import Login from './pages/login/Login';
+import Cadastro from './pages/cadastro/Cadastro';
+import { ToastContainer } from 'react-toastify';
 import './App.css';
-import Footer from './components/static/footer/Footer';
 import Navbar from './components/static/navbar/Navbar';
-import { BrowserRouter as Router } from 'react-router-dom';
+import Footer from './components/static/footer/Footer';
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Footer />
-    </Router>
+    <>
+      <Provider store={store}>
+        <ToastContainer />
+        <Router>
+          <Navbar />
+          <div style={{ minHeight: '100vh' }}>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/cadastrar" element={<Cadastro />} />
+            </Routes>
+          </div>
+          <Footer />
+        </Router>
+      </Provider>
+    </>
   );
 }
 

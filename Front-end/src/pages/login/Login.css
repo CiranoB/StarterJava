@@ -1,0 +1,30 @@
+.containerLogin{
+    min-height: 100vh;
+    direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #DCE3E1 !important;
+}
+
+.itemLogin{
+    direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxLogin{
+    background-color: #F1F1F0;
+    border-radius: 25px;
+}
+
+.botaoLogin{
+    border-color: black !important;
+    background-color: #DEBA7C !important;
+    color: black !important;
+    font-weight: bold!important;
+}
+
+.textosLogin{
+    font-weight: bold!important;
+    color: black!important
+}
