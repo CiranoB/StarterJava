@@ -25,7 +25,7 @@ export default function Cadastro() {
     agePerson: 0,
     loginPerson: '',
     passwordPerson: '',
-    admin: false,
+    typePerson: '',
     statusUser: true,
     objectiveUser: '',
     heightUser: 0.00,
@@ -42,7 +42,7 @@ export default function Cadastro() {
     agePerson: 0,
     loginPerson: '',
     passwordPerson: '',
-    admin: false,
+    typePerson: '',
     statusUser: true,
     objectiveUser: '',
     heightUser: 0,
@@ -72,7 +72,7 @@ export default function Cadastro() {
     agePerson: 0,
     loginPerson: '',
     passwordPerson: '',
-    admin: true,
+    typePerson: '',
     crnNutritionist: '',
     statusNutritionist: true,
     registerNutritionist: ''
@@ -85,7 +85,7 @@ export default function Cadastro() {
     agePerson: 0,
     loginPerson: '',
     passwordPerson: '',
-    admin: true,
+    typePerson: '',
     crnNutritionist: '',
     statusNutritionist: true,
     registerNutritionist: ''
@@ -111,7 +111,7 @@ export default function Cadastro() {
     agePerson: 20,
     loginPerson: '',
     passwordPerson: '',
-    admin: false,
+    typePerson: '',
     statusBookkeeper: true,
     registerBookkeeper: ''
   });
@@ -120,10 +120,10 @@ export default function Cadastro() {
     uuidPerson: '',
     namePerson: '',
     cpfPerson: '',
-    agePerson: 0,
+    agePerson: 20,
     loginPerson: '',
     passwordPerson: '',
-    admin: false,
+    typePerson: '',
     statusBookkeeper: true,
     registerBookkeeper: ''
   });
@@ -144,8 +144,7 @@ export default function Cadastro() {
   const [valueView, setValueView] = useState('0');
   async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault()
-    console.log("oi")
-    if (confirmarSenha === bookkeeper.passwordPerson) {
+    if ((confirmarSenha === bookkeeper.passwordPerson) || (confirmarSenha === user.passwordPerson) || (confirmarSenha === nutritionist.passwordPerson)) {
       if (valueView === '1') {
         registerUser(`/auth/register/user`, user, setUserResult)
       }
@@ -157,7 +156,7 @@ export default function Cadastro() {
         console.log(bookkeeper)
         registerBookkeeper(`/auth/register/bookkeeper`, bookkeeper, setBookkeeperResult)
       }
-    }else{
+    } else {
       console.log("senha diferente")
       console.log("segunda senha: " + confirmarSenha)
     }
@@ -252,6 +251,7 @@ export default function Cadastro() {
             <form onSubmit={onSubmit}>
               <Box marginTop={2}>
                 <TabContext value={valueView}>
+
                   <TabPanel value="1" className="tabPanelCadastro">
                     <Typography variant='h6' gutterBottom color='textPrimary' component='h4' align='center'>Cadastrando um Usuário:</Typography>
                     <TextField value={user.namePerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelUser(e)} id='namePerson' label='Nome' variant='outlined' name='namePerson' margin='normal' fullWidth />
@@ -266,6 +266,7 @@ export default function Cadastro() {
                     <TextField value={user.restrictionUser} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelUser(e)} id='restrictionUser' label='Link da Foto' variant='outlined' name='restrictionUser' margin='normal' fullWidth />
                     <TextField value={user.costUser} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelUser(e)} id='costUser' label='Link da Foto' variant='outlined' name='costUser' margin='normal' fullWidth />
                   </TabPanel>
+
                   <TabPanel value="2" className="tabPanelCadastro">
                     <Typography variant='h6' gutterBottom color='textPrimary' component='h4' align='center'>Cadastrando um Nutricionista:</Typography>
                     <TextField value={nutritionist.namePerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelNutritionist(e)} id='namePerson' label='Nome' variant='outlined' name='namePerson' margin='normal' fullWidth />
@@ -277,6 +278,7 @@ export default function Cadastro() {
                     <TextField value={nutritionist.crnNutritionist} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelNutritionist(e)} id='crnNutritionist' label='CRN do Nutricionista' variant='outlined' name='crnNutritionist' margin='normal' fullWidth />
                     <TextField value={nutritionist.registerNutritionist} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelNutritionist(e)} id='registerNutritionist' label='Número de Registro' variant='outlined' name='registerNutritionist' margin='normal' fullWidth />
                   </TabPanel>
+
                   <TabPanel value="3" className="tabPanelCadastro">
                     <Typography variant='h6' gutterBottom color='textPrimary' component='h4' align='center'>Cadastrando um Contador:</Typography>
                     <TextField value={bookkeeper.namePerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelBookkeeper(e)} id='namePerson' label='Nome' variant='outlined' name='namePerson' margin='normal' fullWidth />

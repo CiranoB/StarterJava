@@ -5,7 +5,7 @@ interface Nutritionist{
     agePerson: number;
     loginPerson: string;
     passwordPerson: string;
-    admin: boolean;
+    typePerson: string;
     crnNutritionist: string;
     statusNutritionist: boolean;
     registerNutritionist: string;

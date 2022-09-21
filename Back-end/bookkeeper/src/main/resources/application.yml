@@ -17,7 +17,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/db_nutritionapi?createDatabaseIfNotExist=true&serverTimezone=America/Sao_Paulo&useSSl=false&allowPublicKeyRetrieval=true&sslMode=DISABLED
     username: root
-    password: root
+    password: Neres30
 
   jackson:
     data-format: yyyy-MM-dd HH:mm:ss

@@ -1,7 +1,11 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: 'http://localhost:8080/'
+    baseURL: 'http://localhost:8080/',
+    headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+    }
 })
 
 export const login = async (url: any, data: any, setData: any) => {
@@ -29,17 +33,17 @@ export const getAllUser = async (url: any, setData: any, headers: any) => {
     setData(response.data)
 }
 
-export const updateUser =async (url:any, data: any, setData: any, headers: any) => {
+export const updateUser = async (url: any, data: any, setData: any, headers: any) => {
     const response = await api.put(url, data, headers)
-    setData(response.data)    
+    setData(response.data)
 }
 
-export const myPayments =async (url:any, setData:any, headers:any) => {
+export const myPayments = async (url: any, setData: any, headers: any) => {
     const response = await api.get(url, headers)
     setData(response.data)
 }
 
-export const myDiet =async (url:any, setData:any, headers:any) => {
+export const myDiet = async (url: any, setData: any, headers: any) => {
     const response = await api.get(url, headers)
     setData(response.data)
 }
@@ -64,9 +68,9 @@ export const getAllNutritionist = async (url: any, setData: any, headers: any) =
     setData(response.data)
 }
 
-export const updateNutritionist =async (url:any, data: any, setData: any, headers: any) => {
+export const updateNutritionist = async (url: any, data: any, setData: any, headers: any) => {
     const response = await api.put(url, data, headers)
-    setData(response.data)    
+    setData(response.data)
 }
 //Nutrtitionist
 //Bookkeeper
@@ -89,9 +93,9 @@ export const getAllBookkeeper = async (url: any, setData: any, headers: any) => 
     setData(response.data)
 }
 
-export const updateBookkeeper =async (url:any, data: any, setData: any, headers: any) => {
+export const updateBookkeeper = async (url: any, data: any, setData: any, headers: any) => {
     const response = await api.put(url, data, headers)
-    setData(response.data)    
+    setData(response.data)
 }
 //Bookkeeper
 //Group
@@ -114,9 +118,9 @@ export const getAllGroup = async (url: any, setData: any, headers: any) => {
     setData(response.data)
 }
 
-export const updateGroup =async (url:any, data: any, setData: any, headers: any) => {
+export const updateGroup = async (url: any, data: any, setData: any, headers: any) => {
     const response = await api.put(url, data, headers)
-    setData(response.data)    
+    setData(response.data)
 }
 //Group
 //Diet
@@ -139,9 +143,9 @@ export const getAllDiet = async (url: any, setData: any, headers: any) => {
     setData(response.data)
 }
 
-export const updateDiet =async (url:any, data: any, setData: any, headers: any) => {
+export const updateDiet = async (url: any, data: any, setData: any, headers: any) => {
     const response = await api.put(url, data, headers)
-    setData(response.data)    
+    setData(response.data)
 }
 //Diet
 //Pay
@@ -164,8 +168,8 @@ export const getAllPay = async (url: any, setData: any, headers: any) => {
     setData(response.data)
 }
 
-export const updatePay =async (url:any, data: any, setData: any, headers: any) => {
+export const updatePay = async (url: any, data: any, setData: any, headers: any) => {
     const response = await api.put(url, data, headers)
-    setData(response.data)    
+    setData(response.data)
 }
 //Pay

@@ -7,7 +7,7 @@ interface User {
     agePerson: number;
     loginPerson: string;
     passwordPerson: string;
-    admin: boolean;
+    typePerson: string;
     statusUser: boolean;
     objectiveUser: string;
     heightUser: number;

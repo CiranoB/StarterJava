@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gft.starter.auth.service.AuthenticationService;
 import com.gft.starter.auth.utility.JwtUtility;
 import com.gft.starter.core.model.Bookkeeper;
-import com.gft.starter.core.model.JwtToken;
 import com.gft.starter.core.model.Nutritionist;
 import com.gft.starter.core.model.PersonLogin;
 import com.gft.starter.core.model.User;

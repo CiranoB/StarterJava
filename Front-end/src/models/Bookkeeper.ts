@@ -5,7 +5,7 @@ interface Bookkeeper{
     agePerson: number;
     loginPerson: string;
     passwordPerson: string;
-    admin: boolean;
+    typePerson: string;
     statusBookkeeper: boolean;
     registerBookkeeper: string;
 }
