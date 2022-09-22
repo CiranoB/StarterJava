@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Grid, Box, Button, Typography, TextField } from "@mui/material"
 import "./Login.css";
 
-export default function login() {
+export default function Login() {
 
   async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();

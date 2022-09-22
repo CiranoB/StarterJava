@@ -5,6 +5,8 @@
 .navbar {
     min-height: 5vh;
     background-color: #c3baac !important;
+    position: sticky !important;
+    box-shadow: none !important;
 }
 
 .bold{

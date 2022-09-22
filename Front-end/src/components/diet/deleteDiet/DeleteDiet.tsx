@@ -1,9 +1,9 @@
 import React from 'react'
 import "./DeleteDiet.css"
-function Delete() {
+function DeleteDiet() {
   return (
     <div>Delete</div>
   )
 }
 
-export default Delete
+export default DeleteDiet
