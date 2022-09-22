@@ -1,37 +1,77 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../services/Service";
 import { Grid, Box, Button, Typography, TextField } from "@mui/material"
 import "./Login.css";
+import PersonLogin from "../../models/PersonLogin";
+import { toast } from "react-toastify";
 
-export default function login() {
+export default function Login() {
+  let navigate = useNavigate();
+  const [personLogin, setPersonLogin] = useState<PersonLogin>({
+    uuidPerson: "",
+    loginPerson: "",
+    passwordPerson: "",
+    token: "",
+    typePerson: "",
+  });
 
+  const [respPersonLogin, setRespPersonLogin] = useState<PersonLogin>({
+    uuidPerson: "",
+    loginPerson: "",
+    passwordPerson: "",
+    token: "",
+    typePerson: "",
+  });
+
+  function updatedModel(e: ChangeEvent<HTMLInputElement>) {
+    setPersonLogin({
+      ...personLogin,
+      [e.target.name]: e.target.value
+    });
+  }
   async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
-    /*try {
-        await login(`usuarios/logar`, userLogin, setRespUserLogin)
-        toast.success('Usuario logado com sucesso', {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored',
-        });
+    try {
+      await login(`/auth/login`, personLogin, setRespPersonLogin)
+      toast.success('Usuario logado com sucesso', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
     } catch (erro) {
-        toast.error('Dados inconsistentes.', {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored',
-        });
-    }*/
+      toast.error('Dados inconsistentes.', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    }
   }
+
+  useEffect(() => {
+    if (respPersonLogin.token !== "") {
+      if (respPersonLogin.typePerson === "bookkeeper") {
+        navigate('/bookkeeper')
+      }
+      if (respPersonLogin.typePerson === "user") {
+        navigate('/feed')
+      }
+      if (respPersonLogin.typePerson === "nutritionist") {
+        navigate('/feed')
+      }
+    }
+  }, [respPersonLogin.token])
+
   return (
     <>
       <Grid
@@ -44,8 +84,8 @@ export default function login() {
           <Box paddingX={20} paddingY={5} className="boxLogin">
             <form onSubmit={onSubmit}>
               <Typography variant="h3" gutterBottom color="textPrimary" component="h3" align="center" className="textosLogin">Entrar</Typography>
-              <TextField /*value={personLogin.usuario} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}*/ id="usuario" label="E-mail" variant="outlined" name="usuario" margin="normal" fullWidth />
-              <TextField /*value={personLogin.senha} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}*/ id="senha" label="Senha" variant="outlined" name="senha" margin="normal" type="password" fullWidth />
+              <TextField value={personLogin.loginPerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id="loginPerson" label="E-mail" variant="outlined" name="loginPerson" margin="normal" fullWidth />
+              <TextField value={personLogin.passwordPerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id="passwordPerson" label="Senha" variant="outlined" name="passwordPerson" margin="normal" type="password" fullWidth />
               <Box marginTop={2} textAlign="center">
                 <Button type="submit" variant="contained" className="botaoLogin">Logar</Button>
               </Box>
