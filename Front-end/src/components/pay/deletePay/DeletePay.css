@@ -1,0 +1,14 @@
+.botaoDeletePay {
+    display: flex;
+    justify-content: center;
+}
+
+.boxDeletePay {
+    display: flex;
+    direction: column;
+    justify-content: center;
+    background-color: #7CB6B5;    
+    /* margin-bottom: 20px; */
+    border-radius: 15px;
+    padding: 20px;
+}
