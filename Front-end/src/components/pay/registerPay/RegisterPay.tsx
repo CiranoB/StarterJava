@@ -72,20 +72,13 @@ function RegisterPay() {
     }, [uuidPay]);
 
     async function findByPayUuid(uuidPay: string) {
-        await getIdPay(`/bookkeeper/pay/find/${uuidPay}`, setPay, {
+        getIdPay(`/bookkeeper/pay/find/${uuidPay}`, setPay, {
             headers: {
-                'Authorization': token 
+                'Authorization': token
             }
         })
     }
 
-    async function findByUserUuid() {
-        await getIdUser(`/nutritionist/user/find/${pay?.user?.uuidPerson}`, setUser, {
-            headers: {
-                'Authorization': token
-            }
-        })   
-    }
     async function getUsers() {
         await getAllUser("/nutritionist/user/all", setUsers, {
             headers: {
@@ -104,7 +97,6 @@ function RegisterPay() {
 
     async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
-        console.log(uuidPay)
         if (uuidPay !== undefined) {
             updatePay(`/bookkeeper/pay/update`, pay, setPay, {
                 headers: {
@@ -148,7 +140,6 @@ function RegisterPay() {
     var componentsRegisterPay;
     var tituloRegisterPay;
     if (uuidPay !== undefined) {
-
         tituloRegisterPay = <Typography variant="h4" color="textSecondary" component="h1" align="center">
             Editando fatura:
         </Typography>
@@ -167,8 +158,9 @@ function RegisterPay() {
                             <Box m={1}>
                                 {tituloRegisterPay}
                             </Box>
-                            <TextField value={pay.datePay} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedPay(e)} id="datePay" label="Data de vencimento da Fatura" name="datePay" variant="outlined" margin="normal" fullWidth />
                             <TextField value={pay.valuePay} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedPay(e)} id="valuePay" label="Valor da Fatura" name="valuePay" variant="outlined" margin="normal" fullWidth />
+                            <TextField value={pay.datePay} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedPay(e)} id="datePay" label="Data de vencimento da Fatura" name="datePay" variant="outlined" margin="normal" fullWidth />
+                            <FormHelperText sx={{ fontSize: 14 }}> Selecione o Usuário</FormHelperText>
                             <FormControl fullWidth variant="standard">
                                 <InputLabel sx={{ fontSize: 14 }} id="demo-simple-select-helper-label">Usuarios:</InputLabel>
                                 <Select
@@ -189,7 +181,6 @@ function RegisterPay() {
                                     ))}
                                 </Select>
                             </FormControl>
-                            <FormHelperText sx={{ fontSize: 14 }}> Selecione o Usuário</FormHelperText>
                             <TextField value={pay.dueDatePay} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedPay(e)} id="dueDatePay" label="A Fatura foi paga no dia:" name="dueDatePay" variant="outlined" margin="normal" fullWidth />
                             <Box className="botaoRegisterPay">
                                 <Box padding={1}>

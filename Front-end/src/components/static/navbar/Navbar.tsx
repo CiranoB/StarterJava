@@ -24,9 +24,11 @@ function Navbar() {
   return (
     <AppBar className='navbar'>
       <Toolbar variant='dense' className='toolbar'>
-        <Box>
-          <img src="https://i.imgur.com/1tsr9UV.png" alt="Home" width={40} />
-        </Box>
+        <Link to='/' className='text-decorator-none'>
+          <Box>
+            <img src="https://i.imgur.com/1tsr9UV.png" alt="Home" width={40} />
+          </Box>
+        </Link>
         <Box className='menuNav bold'>
           <Box marginX={2}>
             Como funciona
@@ -34,9 +36,16 @@ function Navbar() {
           <Box marginX={2}>
             Planos e preços
           </Box>
-          <Box marginX={2} className='buttonNav'>
-            Entrar
-          </Box>
+          <Link to='/login' className='text-decorator-none'>
+            <Box marginX={2} className='buttonNav'>
+              Entrar
+            </Box>
+          </Link>
+          <Link to='/cadastrar' className='text-decorator-none'>
+            <Box marginX={2} className='buttonNav'>
+              Cadastrar
+            </Box>
+          </Link>
         </Box>
       </Toolbar>
     </AppBar>

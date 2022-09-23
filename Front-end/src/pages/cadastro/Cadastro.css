@@ -38,3 +38,8 @@
     align-items: center;
     justify-content: center;
 }
+
+.botaoCadastrar{
+    display: flex;
+    justify-content: center;
+}

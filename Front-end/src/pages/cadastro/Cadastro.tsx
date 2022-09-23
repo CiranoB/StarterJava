@@ -153,7 +153,8 @@ export default function Cadastro() {
         registerNutritionist(`/auth/register/nutritionist`, nutritionist, setNutritionistResult)
       }
       if (valueView === '3') {
-        console.log(bookkeeper)
+
+
         registerBookkeeper(`/auth/register/bookkeeper`, bookkeeper, setBookkeeperResult)
       }
     } else {
@@ -246,7 +247,7 @@ export default function Cadastro() {
                 </RadioGroup>
               </FormControl>
             </Box>
-        
+
 
             <form onSubmit={onSubmit}>
               <Box marginTop={2}>
@@ -283,7 +284,7 @@ export default function Cadastro() {
                     <Typography variant='h6' gutterBottom color='textPrimary' component='h4' align='center'>Cadastrando um Contador:</Typography>
                     <TextField value={bookkeeper.namePerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelBookkeeper(e)} id='namePerson' label='Nome' variant='outlined' name='namePerson' margin='normal' fullWidth />
                     <TextField value={bookkeeper.cpfPerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelBookkeeper(e)} id='cpfPerson' label='CPF' variant='outlined' name='cpfPerson' margin='normal' fullWidth />
-                    {/* <TextField value={bookkeeper.agePerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelBookkeeper(e)} id='agePerson' label='Idade' variant='outlined' name='agePerson' margin='normal' fullWidth /> */}
+                    <TextField value={bookkeeper.agePerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelBookkeeper(e)} id='agePerson' label='Idade' variant='outlined' name='agePerson' margin='normal' fullWidth />
                     <TextField value={bookkeeper.loginPerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelBookkeeper(e)} id='loginPerson' label='E-mail' variant='outlined' name='loginPerson' margin='normal' fullWidth />
                     <TextField value={bookkeeper.passwordPerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModelBookkeeper(e)} id='passwordPerson' label='Senha' variant='outlined' name='passwordPerson' margin='normal' type='password' fullWidth />
                     <TextField value={confirmarSenha} onChange={(e: ChangeEvent<HTMLInputElement>) => confirmarSenhaHandle(e)} id='confirmarSenha' label='Confirmação de Senha' variant='outlined' name='confirmarSenha' margin='normal' type='password' fullWidth />
@@ -291,15 +292,19 @@ export default function Cadastro() {
                   </TabPanel>
                 </TabContext>
               </Box>
-              <Box marginTop={2} textAlign='center'>
-                <Link to='/login' className='text-decorator-none'>
-                  <Button variant='contained' color='secondary' className='btnCancelar'>
-                    Cancelar
+              <Box marginTop={2} textAlign='center' className="botaoCadastrar">
+                <Box paddingX={2}>
+                  <Link to='/login' className='text-decorator-none'>
+                    <Button variant='contained' color='secondary'>
+                      Cancelar
+                    </Button>
+                  </Link>
+                </Box>
+                <Box paddingX={2}>
+                  <Button type='submit' variant='contained' color='primary'>
+                    Cadastrar
                   </Button>
-                </Link>
-                <Button type='submit' variant='contained' color='primary'>
-                  Cadastrar
-                </Button>
+                </Box>
               </Box>
             </form>
           </Box>

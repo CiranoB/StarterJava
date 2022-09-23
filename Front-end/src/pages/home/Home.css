@@ -3,7 +3,20 @@
     font-weight: bold !important;
 }
 
+.botaoCadastro{
+    color: black!important;
+    font-weight: bold !important;
+}
+
 .subtitulo{
+    padding-bottom: 4%;
+    color: white !important;
+    font-weight: bold !important;
+
+}
+
+.subtituloMeio{
+    text-align: justify !important;
     padding-bottom: 4%;
     color: white !important;
     font-weight: bold !important;
@@ -20,10 +33,14 @@
 
 .caixa{
     background-color: #7CB6B5; 
+    padding: 0px 10px;
+}
+
+.text-decoration-none{
+    text-decoration: none !important;
 }
 
 .botao{
-    border-color: white !important;
     background-color: #D8D8D4 !important;
     color: white !important;
 }
@@ -33,6 +50,7 @@
 }
 
 .titulo2{
+    margin-top: 15px;
     color: #7CB6B5 !important;
     font-weight: bold !important;
 }
