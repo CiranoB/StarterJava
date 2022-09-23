@@ -1,6 +1,7 @@
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet';
 import { Slide, toast } from 'react-toastify';
 import Pay from '../../models/Pay';
 import { myPayments } from '../../services/Service';
@@ -8,8 +9,9 @@ import './MyPays.css'
 
 function MyPays() {
 
-    const token  = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwM2EyYzQ5NC0zMGU3LTQxNTYtYjFhNy1lNzY5NTNmNmUxOWMiLCJleHAiOjE2NjM5MjQxNTMsImlhdCI6MTY2MzkwNjE1M30.DzHoqYplm1GT15fOt9RVxj_n36EQCfhSmtOf_TKhzzTiqO0XD47N4nTZ1ZiynvXrGP_q60ydZZL97udLGwVemg';
-  function no() {
+    const token  = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwM2EyYzQ5NC0zMGU3LTQxNTYtYjFhNy1lNzY5NTNmNmUxOWMiLCJleHAiOjE2NjM5NTQzODgsImlhdCI6MTY2MzkzNjM4OH0.CeqRkKwoByEALoI8HKLohqJsukWObH-MotMFyIDza6kEY858eWnOVTdaRuEBB-KYDT2i_k1Le3jbvqP8vs4-BQ';
+  
+    function no() {
 
     toast.info('Função não implementada', {
       position: "top-center",
@@ -51,10 +53,15 @@ function MyPays() {
 
   const classes = useStyles();
 
-  console.log(pays.toString)
+  console.log(pays.toString);
+
+
 
   return (
     <>
+    <Helmet>
+                <style>{'body { background-color: #D8D8D4; }'}</style>
+            </Helmet>
       <Grid container xs={12} className="container-produtos">
         <Box className='anunciar'>
           <h1 className='produtos fontFamily'>Produtos</h1>
@@ -65,18 +72,19 @@ function MyPays() {
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardMedia
-                    // className={classes.media}
+                    image={'https://static5.depositphotos.com/1013245/484/i/600/depositphotos_4841836-stock-photo-bar-code.jpg'}
+                    className={classes.media}
                     title={pays.uuidPay}
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2" className='nomeProduto'>
-                      Data de vencimento {pays.dueDatePay}
+                      Vencimento: {pays.dueDatePay}
                     </Typography>
                     <Typography gutterBottom variant="h5" component="h2" className='nomeProduto'>
                       R$ {pays.valuePay}
                     </Typography>
                     <Typography variant="body2" color="textPrimary" component="p">
-                      Pagamento efetivado em: {pays.datePay}
+                        Pagamento efetivado em: {pays.datePay}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

@@ -232,14 +232,13 @@ export default function Cadastro() {
         className="containerCadastro">
         <Grid
           item
-          xs={4}
+          xs={6}
           className="itemCadastro">
-          <Box paddingX={10} marginY={10} className='boxCadastro'>
+          <Box paddingX={5} marginY={10} className='boxCadastro' >
             <Typography variant='h3' gutterBottom color='textPrimary' component='h4' align='center' className="textoCadastro">Cadastrar</Typography>
-
             <Box marginBottom={2}>
-              <FormControl component="fieldset">
-                <Typography variant="h6" color="inherit">Selecione um tipo de Usuário:</Typography>
+              <FormControl component="fieldset" className="centralizar">
+                <Typography align='center' variant="h6" color="inherit">Selecione um tipo de Usuário:</Typography>
                 <RadioGroup aria-label="tipoPessoa" name="tipoPessoa" value={value} onChange={handleChange}>
                   <FormControlLabel value="user" control={<Radio color="primary" />} label="Usuário" onClick={() => setValueView("1")} />
                   <FormControlLabel value="nutritionist" control={<Radio color="primary" />} label="Nutricionista" onClick={() => setValueView("2")} />
@@ -247,6 +246,7 @@ export default function Cadastro() {
                 </RadioGroup>
               </FormControl>
             </Box>
+        
 
             <form onSubmit={onSubmit}>
               <Box marginTop={2}>
