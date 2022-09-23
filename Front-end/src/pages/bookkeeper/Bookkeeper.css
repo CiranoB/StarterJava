@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     background-color: #7CB6B5;    
-    margin-top: 10px;
+    margin-top: 20px;
     border-radius: 15px;
 }
 
@@ -19,7 +19,12 @@
     direction: column;
     justify-content: center;
     background-color: #7CB6B5;    
-    margin-top: 10px;
+    margin-top: 25px;
+    /* margin-bottom: 20px; */
     border-radius: 15px;
-    padding: 10px;
+    padding: 20px;
+}
+
+.text-decorator-none{
+    text-decoration: none;
 }

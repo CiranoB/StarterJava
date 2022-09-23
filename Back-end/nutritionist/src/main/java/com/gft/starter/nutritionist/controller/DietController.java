@@ -62,30 +62,8 @@ public class DietController {
 
 	@PostMapping("/register")
 	public ResponseEntity<Diet> post(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody Diet diet) throws ExecutionException, JSONException {
-		authorization.checkPermissions(token);
-
-		Future<Double> caloria = dietService.acessandoApiNutri(diet.getFoodsDiet());
-
-		try {
-			Thread.sleep(2500);
-			if (!caloria.isDone()) {
-				throw new ResponseStatusException(HttpStatus.REQUEST_TIMEOUT, "API de nutrição não respondeu a tempo",
-						null);
-			}
-
-			diet.setKcalDiet(caloria.get());
-
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		return dietService.criandoDieta(diet).map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
-				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
-	}
-
-	@PutMapping("/update")
-	public ResponseEntity<Diet> put(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody Diet diet) throws ExecutionException, JSONException {
-		authorization.checkPermissions(token);
+		authorization.checkPermissions(token);	
+		UUID uuidNutritionist = authorization.getUuidToken(token);
 		
 		Future<Double> caloria = dietService.acessandoApiNutri(diet.getFoodsDiet());
 
@@ -97,7 +75,33 @@ public class DietController {
 			}
 
 			diet.setKcalDiet(caloria.get());
+			diet.getNutritionist().setUuidPerson(uuidNutritionist);
+			
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
+		return dietService.criandoDieta(diet).map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
+				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+	}
+
+	@PutMapping("/update")
+	public ResponseEntity<Diet> put(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody Diet diet) throws ExecutionException, JSONException {
+		authorization.checkPermissions(token);
+		UUID uuidNutritionist = authorization.getUuidToken(token);
+		
+		Future<Double> caloria = dietService.acessandoApiNutri(diet.getFoodsDiet());
+
+		try {
+			Thread.sleep(2500);
+			if (!caloria.isDone()) {
+				throw new ResponseStatusException(HttpStatus.REQUEST_TIMEOUT, "API de nutrição não respondeu a tempo",
+						null);
+			}
+
+			diet.setKcalDiet(caloria.get());
+			diet.getNutritionist().setUuidPerson(uuidNutritionist);
+			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

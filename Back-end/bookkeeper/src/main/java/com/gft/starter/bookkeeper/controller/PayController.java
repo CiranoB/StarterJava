@@ -56,8 +56,11 @@ public class PayController {
 	@PostMapping("/register")
 	public ResponseEntity<Pay> post(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody Pay pay) {
 		authorization.checkPermissions(token);
+		UUID uuidBookkeeper = authorization.getUuidToken(token);
 		if ((userRepository.existsById(pay.getUser().getUuidPerson()))
-				&& (bookkeeperRepository.existsById(pay.getBookkeeper().getUuidPerson()))) {
+				&& (bookkeeperRepository.existsById(uuidBookkeeper))) {
+			pay.getBookkeeper().setUuidPerson(uuidBookkeeper);
+			System.out.println("Entrou");
 			return ResponseEntity.status(HttpStatus.CREATED).body(payRepository.save(pay));
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -68,9 +71,11 @@ public class PayController {
 	@PutMapping("/update")
 	public ResponseEntity<Pay> put(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody Pay pay) {
 		authorization.checkPermissions(token);
+		UUID uuidBookkeeper = authorization.getUuidToken(token);
 		if (payRepository.existsById(pay.getUuidPay())) {
 			if ((userRepository.existsById(pay.getUser().getUuidPerson()))
-					&& (bookkeeperRepository.existsById(pay.getBookkeeper().getUuidPerson()))) {
+					&& (bookkeeperRepository.existsById(uuidBookkeeper))) {
+				pay.getBookkeeper().setUuidPerson(uuidBookkeeper);
 				return ResponseEntity.status(HttpStatus.OK).body(payRepository.save(pay));
 			}
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -79,8 +84,8 @@ public class PayController {
 	}
 
 	@DeleteMapping("/delete/{uuidPay}")
-	public void delete(@RequestHeader(value = "Authorization") String token, @PathVariable UUID uuid) {
+	public void delete(@RequestHeader(value = "Authorization") String token, @PathVariable UUID uuidPay) {
 		authorization.checkPermissions(token);
-		payRepository.deleteById(uuid);
+		payRepository.deleteById(uuidPay);
 	}
 }

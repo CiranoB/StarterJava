@@ -34,21 +34,18 @@ public class UserController {
 	private UserRepository userRepository;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<User>> getAll(@RequestHeader(value = "Authorization") String token){
-		authorization.checkPermissions(token);
+	public ResponseEntity<List<User>> getAll(){
 		return ResponseEntity.ok(userRepository.findAll());
 	}
 	
 	@GetMapping("/find/{uuidUser}")
-	public ResponseEntity<User> getById(@RequestHeader(value = "Authorization") String token, @PathVariable UUID uuidUser){
-		authorization.checkPermissions(token);
+	public ResponseEntity<User> getById(@PathVariable UUID uuidUser){
 		return userRepository.findById(uuidUser).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());	
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<User> post (@RequestHeader(value = "Authorization") String token, @Valid @RequestBody User oUser){
-		authorization.checkPermissions(token);
+	public ResponseEntity<User> post (@Valid @RequestBody User oUser){
 		return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(oUser));
 	}
 	

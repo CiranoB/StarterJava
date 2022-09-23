@@ -1,0 +1,11 @@
+.formularioPay{
+    margin-top: 20px;
+    background-color: #7CB6B5;  
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.botaoRegisterPay{
+    display: flex;
+    justify-content: center;
+}

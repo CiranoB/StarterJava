@@ -34,4 +34,11 @@ public class AuthorizationService {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Bookkeeper desativado", null);
 
 	}
+	
+	public UUID getUuidToken (String token) {
+		Claims claims = jwtUtility.getClaims(token);
+		UUID uuid = UUID.fromString(claims.getSubject());
+		
+		return uuid;
+	}
 }

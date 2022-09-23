@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.starter.core.model.Nutritionist;
+import com.gft.starter.core.model.User;
 import com.gft.starter.core.repository.NutritionistRepository;
+import com.gft.starter.core.repository.UserRepository;
 import com.gft.starter.nutritionist.utility.JwtUtility;
 
 import io.jsonwebtoken.Claims;
@@ -33,5 +35,12 @@ public class AuthorizationService {
 		if(!nutritionist.get().isStatusNutritionist())
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Nutritionist desativado", null);
 
+	}
+	
+	public UUID getUuidToken (String token) {
+		Claims claims = jwtUtility.getClaims(token);
+		UUID uuid = UUID.fromString(claims.getSubject());
+		
+		return uuid;
 	}
 }

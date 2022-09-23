@@ -1,4 +1,5 @@
 import Group from "./Group";
+import Pay from "./Pay";
 
 interface User {
     uuidPerson: string;
@@ -16,6 +17,7 @@ interface User {
     restrictionUser: string;
     costUser: string;
     group?: Group | null;
+    pay?: Pay | null;
 }
 
 export default User;

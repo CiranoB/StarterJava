@@ -3,11 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../services/Service";
 import { Grid, Box, Button, Typography, TextField } from "@mui/material"
 import "./Login.css";
+import { useDispatch } from "react-redux";
+import { addToken } from "../../store/tokens/action";
 import PersonLogin from "../../models/PersonLogin";
 import { toast } from "react-toastify";
 
 export default function Login() {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   const [personLogin, setPersonLogin] = useState<PersonLogin>({
     uuidPerson: "",
     loginPerson: "",
@@ -60,14 +63,15 @@ export default function Login() {
 
   useEffect(() => {
     if (respPersonLogin.token !== "") {
+      dispatch(addToken(respPersonLogin.token))
       if (respPersonLogin.typePerson === "bookkeeper") {
         navigate('/bookkeeper')
       }
       if (respPersonLogin.typePerson === "user") {
-        navigate('/feed')
+        navigate('/user')
       }
       if (respPersonLogin.typePerson === "nutritionist") {
-        navigate('/feed')
+        navigate('/nutritionist')
       }
     }
   }, [respPersonLogin.token])
