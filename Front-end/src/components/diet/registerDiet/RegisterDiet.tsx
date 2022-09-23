@@ -1,5 +1,4 @@
 import React from 'react'
-import "./RegisterDiet.css"
 
 function RegisterDiet() {
   return (

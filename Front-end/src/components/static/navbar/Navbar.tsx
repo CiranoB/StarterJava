@@ -22,7 +22,7 @@ import './Navbar.css';
 
 function Navbar() {
   return (
-    <AppBar className='navbar' position='sticky'>
+    <AppBar className='navbar'>
       <Toolbar variant='dense' className='toolbar'>
         <Box>
           <img src="https://i.imgur.com/1tsr9UV.png" alt="Home" width={40} />
