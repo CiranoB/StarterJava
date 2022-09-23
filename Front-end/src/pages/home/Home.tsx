@@ -1,4 +1,5 @@
 import { Typography, Grid, Button } from '@material-ui/core';
+import { Link, useNavigate } from "react-router-dom";
 import { Box } from '@mui/material'
 import './Home.css';
 
@@ -13,18 +14,19 @@ function Home() {
                         <Typography variant="h5" gutterBottom color="textPrimary" component="h5" align="center" className='subtitulo'>
                           <div>Nunca foi tão fácil construir uma dieta</div>
                            </Typography>
+                           <Link to='/login'>
                            <Typography variant="h5" gutterBottom color="textPrimary" component="h1" align="center" className='titulo'>
-                           <Button color="inherit" variant="contained" className='botao'>CADASTRE-SE</Button> 
+                           <Button color="inherit" variant="contained" className='botao'>FAÇA LOGIN OU CADASTRE-SE</Button>
                            </Typography>
+                           </Link>
                            
                     </Box>
                     
                 </Grid>
                 <Grid container xs={6} justifyContent="space-evenly" >
-                    
-                    <Box alignItems="center">
+                    <Grid container alignItems="center">
                     <img src="https://i.ytimg.com/vi/KzfsQdZRsiE/maxresdefault.jpg" className='image'/>
-                    </Box>
+                    </Grid>
                 </Grid>
                 <Grid xs={12} className='postagens'>
             
@@ -96,7 +98,7 @@ function Home() {
                     <Box >
                         <Typography variant="h2" gutterBottom color="textPrimary"  align="center" 
                         className='titulo2'>Depoimentos Reais</Typography>
-                        <Typography><iframe width="480" height="320"
+                        <Typography  align="center" ><iframe width="480" height="320"
                         src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe></Typography>
 
                     </Box>

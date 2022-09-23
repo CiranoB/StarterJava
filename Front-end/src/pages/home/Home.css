@@ -12,6 +12,7 @@
 .image{
     width: 400px;
     height: 360px;
+    display:block;
     /* Centralizando imagem */
     margin: 0 auto;
     object-fit: cover;

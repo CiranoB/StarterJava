@@ -64,7 +64,7 @@ export default function Login() {
         navigate('/bookkeeper')
       }
       if (respPersonLogin.typePerson === "user") {
-        navigate('/feed')
+        navigate('/user')
       }
       if (respPersonLogin.typePerson === "nutritionist") {
         navigate('/feed')
