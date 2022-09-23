@@ -83,9 +83,9 @@ export default function Login() {
         className="containerLogin">
         <Grid
           item
-          xs={4}
+          xs={6}
           className="itemLogin">
-          <Box paddingX={20} paddingY={5} className="boxLogin">
+          <Box paddingX={5} paddingY={5} className="boxLogin">
             <form onSubmit={onSubmit}>
               <Typography variant="h3" gutterBottom color="textPrimary" component="h3" align="center" className="textosLogin">Entrar</Typography>
               <TextField value={personLogin.loginPerson} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id="loginPerson" label="E-mail" variant="outlined" name="loginPerson" margin="normal" fullWidth />
