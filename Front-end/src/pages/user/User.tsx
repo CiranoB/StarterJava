@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAllUser, getIdUser, myDiet } from '../../services/Service';
 import User from '../../models/User';
 import Diet from '../../models/Diet';
+import {Helmet} from 'react-helmet';
+
 
 function UserF() {
     const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwM2EyYzQ5NC0zMGU3LTQxNTYtYjFhNy1lNzY5NTNmNmUxOWMiLCJleHAiOjE2NjM5NTQzODgsImlhdCI6MTY2MzkzNjM4OH0.CeqRkKwoByEALoI8HKLohqJsukWObH-MotMFyIDza6kEY858eWnOVTdaRuEBB-KYDT2i_k1Le3jbvqP8vs4-BQ";
@@ -33,41 +35,41 @@ function UserF() {
 
     return (
         <>
-        
+        <Helmet>
+                <style>{'body { background-color: #D8D8D4; }'}</style>
+            </Helmet>
                 <Grid
                     item
                     xs={12}
-                    alignItems={'center'}>
+                    alignItems={'center'} className='backgroud'>
                          <Box className="boxCriarFaturaExterno">
                         <Button>
                             <Box className="boxCriarFaturaInterno">
-                                Informações da minha dieta:
+                                <Typography variant="h4" align='center'>Informações da minha dieta: </Typography>
                             </Box>
                         </Button>
                     </Box>
-                </Grid>
-                <Grid alignItems={'center'}>
-                    <Box alignItems={'center'} className="boxCriarFaturaInterno">
-                    <Typography>Alimentos e quantidades: <TextField value={diet.foodsDiet}>
-                    </TextField></Typography>
+                    <Grid item xs={12}>
+                    <Box>
+                    <Typography variant="h5" align='center'>Alimentos e quantidades: {diet.foodsDiet}</Typography>
                     </Box>
-                    <Box alignItems={'center'} className="boxCriarFaturaInterno">
-                    <Typography>Quantidade de calorias: <TextField value={diet.kcalDiet}>
-                    </TextField></Typography>
+                    <Box>
+                    <Typography variant="h5" align='center'>Quantidade de calorias:  {diet.kcalDiet}</Typography>
                     </Box>
-                    <Box alignItems={'center'} className="boxCriarFaturaInterno">
-                    <Typography>Profissional responsável: <TextField value={diet.nutritionist.namePerson}>
-                    </TextField></Typography>
+                    <Box>
+                    <Typography variant="h5" align='center'>Profissional responsável: {diet.nutritionist.namePerson}</Typography>
                     </Box>
                 </Grid>
+                </Grid>
+               
 
                 <Grid
                     item
-                    xs={12}>
+                    xs={12} className='backgroud'>
                     <Box className="boxCriarFaturaExterno">
                         <Button>
                             <Link to='/mypays'>
-                        <Typography variant="h5" gutterBottom color="textPrimary" component="h1" align="center" className='titulo'>
+                        <Typography variant="h5"  color="textPrimary" component="h1" align="center" className='titulo'>
                             <Box className="boxCriarFaturaInterno">
                                 Ver minhas faturas
                             </Box>

@@ -1,6 +1,7 @@
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet';
 import { Slide, toast } from 'react-toastify';
 import Pay from '../../models/Pay';
 import { myPayments } from '../../services/Service';
@@ -58,6 +59,9 @@ function MyPays() {
 
   return (
     <>
+    <Helmet>
+                <style>{'body { background-color: #D8D8D4; }'}</style>
+            </Helmet>
       <Grid container xs={12} className="container-produtos">
         <Box className='anunciar'>
           <h1 className='produtos fontFamily'>Produtos</h1>
@@ -69,7 +73,7 @@ function MyPays() {
                 <CardActionArea>
                   <CardMedia
                     image={'https://static5.depositphotos.com/1013245/484/i/600/depositphotos_4841836-stock-photo-bar-code.jpg'}
-                    // className={classes.media}
+                    className={classes.media}
                     title={pays.uuidPay}
                   />
                   <CardContent>
