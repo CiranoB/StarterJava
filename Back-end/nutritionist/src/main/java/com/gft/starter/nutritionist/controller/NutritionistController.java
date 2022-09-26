@@ -37,9 +37,11 @@ public class NutritionistController {
 		return ResponseEntity.ok(nutritionistRepository.findAll());
 	}
 	
-	@GetMapping("/find/{uuidNutritionist}")
-	public ResponseEntity<Nutritionist> getById(@RequestHeader(value = "Authorization") String token, @PathVariable UUID uuidNutritionist){
+	@GetMapping("/find")
+	public ResponseEntity<Nutritionist> getById(@RequestHeader(value = "Authorization") String token){
 		authorization.checkPermissions(token);
+		UUID uuidNutritionist = authorization.getUuidToken(token);
+		System.out.println(uuidNutritionist);
 		return nutritionistRepository.findById(uuidNutritionist).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());	
 	}

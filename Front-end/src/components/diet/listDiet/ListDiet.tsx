@@ -1,60 +1,100 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Slide, toast } from 'react-toastify';
-import Diet from '../../../models/Diet';
-import { getAllDiet } from '../../../services/Service';
+import { getIdNutritionist } from '../../../services/Service';
 import { TokenState } from '../../../store/tokens/tokensReducer';
 import "./ListDiet.css"
+import { makeStyles, Card, CardActions, CardContent, Button, Typography, Grid } from '@material-ui/core/';
+import Nutritionist from '../../../models/Nutritionist';
+import Diet from '../../../models/Diet';
+
 
 function ListDiet() {
 
-  // //Definindo as variaveis
-  // const [diets, setDiets] = useState<Diet[]>([]);
+  //Definindo as variaveis
+  const [nutritionist, setNutritionist] = useState<Nutritionist>({
+    uuidPerson: '',
+    namePerson: '',
+    cpfPerson: '',
+    agePerson: 0,
+    loginPerson: '',
+    passwordPerson: '',
+    typePerson: '',
+    crnNutritionist: '',
+    statusNutritionist: true,
+    registerNutritionist: ''
+  });
 
-  // //Se precisar mandar navegar para outra página
-  // let navigate = useNavigate();
+  const [diets, setDiets] = useState<Diet[]>([]);
 
-  // //Pegar o token dos state
-  // const tokenLogin = useSelector<TokenState, TokenState['tokenLogin']>(
-  //   (state) => state.tokenLogin
-  // );
+  //Pegar o token dos state
+  const tokenLogin = useSelector<TokenState, TokenState['tokenLogin']>(
+    (state) => state.tokenLogin
+  );
 
-  // //assync function para chamar o back
-  // async function listDiet() {
-  //   await getAllDiet('/nutritionist/diet/all', setDiets, {
-  //     headers: {
-  //       Authorization: tokenLogin
-  //     }
-  //   });
-  // }
+  //assync function para chamar o back
+  async function findNutritionist() {
+    await getIdNutritionist('/nutritionist/find', setNutritionist, {
+      headers: {
+        Authorization: tokenLogin
+      }
+    });
+  }
 
-  // //Verificar se o tamanho está alterando ou não
-  // useEffect(() => {
-  //   listDiet()
-  // }, [diets.length])
+  //Verificar se o tamanho está alterando ou não
+  useEffect(() => {
+    if (tokenLogin !== undefined) {
+      findNutritionist()
+    }
+  }, [tokenLogin])
 
-  // //Verificar se existe o token, caso contrário, fazer login
-  // useEffect(() => {
-  //   if (tokenLogin === "") {
-  //     toast.warning('Você precisa logar, para cadastrar um produto.', {
-  //       position: "top-center",
-  //       autoClose: 2000,
-  //       hideProgressBar: true,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: 'colored',
-  //       transition: Slide,
-  //     });
+  //Estilizando cards para listagem
+  const useStyles = makeStyles({
+    root: {
+      minWidth: 275,
+      backgroundColor: "#ededeacc",
+    },
+    bullet: {
+      display: 'inline-block',
+      margin: '0 2px',
+      transform: 'scale(0.8)',
+    },
+    title: {
+      fontSize: 14,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+  });
 
-  //     navigate('/login');
-  //   }
-  // }, [tokenLogin]);
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <div>Diet</div>
+    <Grid xs={6} className="myDiets">
+      {
+        diets.map((diet: any) => (
+          < Card className={classes.root} variant="outlined">
+            <CardContent>
+              <Typography className={classes.title} color="textSecondary" gutterBottom>
+                Nutricionista: {nutritionist.namePerson}
+              </Typography>
+              <Typography variant="h5" component="h2">
+                Esta dieta possui: {diet.kcalDiet}
+              </Typography>
+              <Typography variant="body2" component="p">
+                well meaning and kindly.
+                <br />
+                {'"a benevolent smile"'}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">Learn More</Button>
+            </CardActions>
+          </Card>
+        ))
+      }
+    </Grid >
   )
 }
 

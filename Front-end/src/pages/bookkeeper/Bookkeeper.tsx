@@ -50,7 +50,7 @@ function Bookkeeper() {
             <Grid
                 container
                 direction="row"
-                sx={{ backgroundColor: "#F1F1F0", minHeight: "100vh" }}
+                sx={{ backgroundColor: "#F1F1F0", minHeight: "80vh" }}
                 justifyContent="center"
                 alignItems="stretch"
                 xs={12}>

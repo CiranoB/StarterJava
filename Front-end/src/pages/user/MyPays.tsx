@@ -9,9 +9,9 @@ import './MyPays.css'
 
 function MyPays() {
 
-    const token  = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwM2EyYzQ5NC0zMGU3LTQxNTYtYjFhNy1lNzY5NTNmNmUxOWMiLCJleHAiOjE2NjM5NTQzODgsImlhdCI6MTY2MzkzNjM4OH0.CeqRkKwoByEALoI8HKLohqJsukWObH-MotMFyIDza6kEY858eWnOVTdaRuEBB-KYDT2i_k1Le3jbvqP8vs4-BQ';
-  
-    function no() {
+  const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwM2EyYzQ5NC0zMGU3LTQxNTYtYjFhNy1lNzY5NTNmNmUxOWMiLCJleHAiOjE2NjM5NTQzODgsImlhdCI6MTY2MzkzNjM4OH0.CeqRkKwoByEALoI8HKLohqJsukWObH-MotMFyIDza6kEY858eWnOVTdaRuEBB-KYDT2i_k1Le3jbvqP8vs4-BQ';
+
+  function no() {
 
     toast.info('Função não implementada', {
       position: "top-center",
@@ -29,9 +29,9 @@ function MyPays() {
 
   async function MyPayments() {
     await myPayments('user/mypayments', setPays, {
-        headers: {
-            'Authorization': token
-        }
+      headers: {
+        'Authorization': token
+      }
     });
   }
 
@@ -59,12 +59,12 @@ function MyPays() {
 
   return (
     <>
-    <Helmet>
-                <style>{'body { background-color: #D8D8D4; }'}</style>
-            </Helmet>
+      <Helmet>
+        <style>{'body { background-color: #D8D8D4; }'}</style>
+      </Helmet>
       <Grid container xs={12} className="container-produtos">
         <Box className='anunciar'>
-          <h1 className='produtos fontFamily'>Produtos</h1>
+          <h1 className='produtos fontFamily'>Pagamentos</h1>
         </Box>
         <Grid container spacing={3} xs={9} className="lista-produtos">
           {
@@ -84,7 +84,7 @@ function MyPays() {
                       R$ {pays.valuePay}
                     </Typography>
                     <Typography variant="body2" color="textPrimary" component="p">
-                        Pagamento efetivado em: {pays.datePay}
+                      Pagamento efetivado em: {pays.datePay}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

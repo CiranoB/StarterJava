@@ -16,11 +16,11 @@ import DeleteGroup from './components/group/deleteGroup/DeleteGroup';
 import RegisterGroup from './components/group/registerGroup/RegisterGroup';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
-import User from './pages/user/User';
 import UserF from './pages/user/User';
 import MyPays from './pages/user/MyPays';
 import RegisterPay from './components/pay/registerPay/RegisterPay';
 import DeletePay from './components/pay/deletePay/DeletePay';
+import Nutritionist from './components/nutritionist/Nutritionist';
 
 function App() {
   return (
@@ -29,17 +29,18 @@ function App() {
         <ToastContainer />
         <Router>
           <Navbar />
-          <div style={{ minHeight: '100vh' }}>
+          <div style={{ minHeight: '80vh' }}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastrar" element={<Cadastro />} />
               <Route path="/bookkeeper" element={<Bookkeeper />} />
               <Route path="/formularioPay" element={<RegisterPay />} />
-            <Route path="/formularioPay/:uuidPay" element={<RegisterPay />} />
-            <Route path="/deletePay/:uuidPay" element={<DeletePay />} />
+              <Route path="/formularioPay/:uuidPay" element={<RegisterPay />} />
+              <Route path="/deletePay/:uuidPay" element={<DeletePay />} />
               <Route path="/user" element={<UserF />} />
               <Route path="/mypays" element={<MyPays />} />
+              <Route path="/nutritionist" element={<Nutritionist />} />
               <Route path="/listDiet" element={<ListDiet />} />
               <Route path="/deleteDiet" element={<DeleteDiet />} />
               <Route path="/registerDiet" element={<RegisterDiet />} />

@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.gft.starter.core.model.Nutritionist;
-import com.gft.starter.core.model.User;
 import com.gft.starter.core.repository.NutritionistRepository;
-import com.gft.starter.core.repository.UserRepository;
 import com.gft.starter.nutritionist.utility.JwtUtility;
 
 import io.jsonwebtoken.Claims;

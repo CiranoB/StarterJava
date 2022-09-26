@@ -1,3 +1,4 @@
+import Group from "./Group";
 import Nutritionist from "./Nutritionist";
 
 interface Diet{
@@ -5,6 +6,7 @@ interface Diet{
     kcalDiet: number;
     foodsDiet: string;
     nutritionist?: Nutritionist | null;
+    group?: Group | null;
 }
 
 export default Diet;

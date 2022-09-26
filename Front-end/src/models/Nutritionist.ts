@@ -1,4 +1,6 @@
-interface Nutritionist{
+import Diet from "./Diet";
+
+interface Nutritionist {
     uuidPerson: string;
     namePerson: string;
     cpfPerson: string;

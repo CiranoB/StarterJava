@@ -4,13 +4,13 @@
 
 .navbar {
     min-height: 5vh;
-    background-color: #c3baac !important;
+    background-color: #E6DED2 !important;
     position: sticky !important;
     box-shadow: none !important;
 }
 
-.bold{
-    font-weight: bold;
+.bold {
+    font-weight: bold !important;
 }
 
 .toolbar {
@@ -26,12 +26,13 @@
 }
 
 .buttonNav {
-    padding: 0.5vh 0.5vw;
-    border: 2px solid black;
-    border-radius: 5px;
+    border: 2px solid black !important;
+    color: black !important;
+    border-radius: 5px !important;
+    margin: 0.5vh 0.25vw !important;
 }
 
 .buttonNav:hover {
-    color: #c3baac;
-    background-color: black;
+    color: #c3baac !important;
+    background-color: black !important;
 }

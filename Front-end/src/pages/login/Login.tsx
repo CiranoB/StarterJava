@@ -4,7 +4,7 @@ import { login } from "../../services/Service";
 import { Grid, Box, Button, Typography, TextField } from "@mui/material"
 import "./Login.css";
 import { useDispatch } from "react-redux";
-import { addToken } from "../../store/tokens/action";
+import { addToken, addType } from "../../store/tokens/action";
 import PersonLogin from "../../models/PersonLogin";
 import { toast } from "react-toastify";
 
@@ -64,6 +64,7 @@ export default function Login() {
   useEffect(() => {
     if (respPersonLogin.token !== "") {
       dispatch(addToken(respPersonLogin.token))
+      dispatch(addType(respPersonLogin.typePerson))
       if (respPersonLogin.typePerson === "bookkeeper") {
         navigate('/bookkeeper')
       }
