@@ -95,15 +95,20 @@ function Navbar() {
     } else if (type === "nutritionist") {
       navbarComponent = <AppBar className='navbar'>
       <Toolbar variant='dense' className='toolbar'>
-        <Link to='/' className='text-decorator-none'>
+        <Link to='/nutritionist' className='text-decorator-none'>
           <Box>
             <img src="https://i.imgur.com/1tsr9UV.png" alt="Home" width={40} />
           </Box>
         </Link>
         <Box className='menuNav bold'>
-          <Link to='/listDiet' className='text-decorator-none'>
+          <Link to='/registerGroup' className='text-decorator-none'>
             <Button color='inherit' variant='contained' className='buttonNav bold'>
-              Gerenciar grupos e dietas
+              Cadastrar grupo
+            </Button>
+          </Link>
+          <Link to='/registerDiet' className='text-decorator-none'>
+            <Button color='inherit' variant='contained' className='buttonNav bold'>
+              Cadastrar dieta
             </Button>
           </Link>
           <Link to='/cadastrar' className='text-decorator-none'>

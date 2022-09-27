@@ -11,6 +11,7 @@ interface Nutritionist {
     crnNutritionist: string;
     statusNutritionist: boolean;
     registerNutritionist: string;
+    diet?: Diet[] | null;
 }
 
 export default Nutritionist;

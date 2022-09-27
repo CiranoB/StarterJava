@@ -1,0 +1,9 @@
+.myDiets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.diet {
+    margin: 1vh 1vw;
+}

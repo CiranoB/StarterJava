@@ -6,7 +6,7 @@ interface Diet{
     kcalDiet: number;
     foodsDiet: string;
     nutritionist?: Nutritionist | null;
-    group?: Group | null;
+    group?: Group[] | null ;
 }
 
 export default Diet;

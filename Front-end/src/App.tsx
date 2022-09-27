@@ -8,11 +8,9 @@ import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Cadastro from './pages/cadastro/Cadastro';
 import Bookkeeper from './pages/bookkeeper/Bookkeeper';
-import DeleteDiet from './components/diet/deleteDiet/DeleteDiet';
 import ListDiet from './components/diet/listDiet/ListDiet';
 import RegisterDiet from './components/diet/registerDiet/RegisterDiet';
 import ListGroup from './components/group/listGroup/ListGroup';
-import DeleteGroup from './components/group/deleteGroup/DeleteGroup';
 import RegisterGroup from './components/group/registerGroup/RegisterGroup';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -42,11 +40,11 @@ function App() {
               <Route path="/mypays" element={<MyPays />} />
               <Route path="/nutritionist" element={<Nutritionist />} />
               <Route path="/listDiet" element={<ListDiet />} />
-              <Route path="/deleteDiet" element={<DeleteDiet />} />
               <Route path="/registerDiet" element={<RegisterDiet />} />
+              <Route path="/updateDiet/:uuidDiet" element={<RegisterDiet />} />
               <Route path="/listGroup" element={<ListGroup />} />
-              <Route path="/deleteGroup" element={<DeleteGroup />} />
               <Route path="/registerGroup" element={<RegisterGroup />} />
+              <Route path="/updateDiet/:uuidGroup" element={<RegisterDiet />} />
 
             </Routes>
           </div>
